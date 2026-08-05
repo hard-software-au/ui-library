@@ -16,7 +16,17 @@ interface ButtonFieldProps extends DatePickerFieldProps {}
 
 function ButtonField(props: ButtonFieldProps) {
   const { forwardedProps: allForwardedProps } = useSplitFieldProps(props, 'date');
-  const { slotProps: _slotProps, inputRef: _inputRef, ...forwardedProps } = allForwardedProps;
+  // `slotProps`/`inputRef` are passed through at runtime by the picker internals
+  // but aren't part of the public `DatePickerFieldProps` type, so they must be
+  // stripped explicitly before spreading onto `Button` (else they leak to the DOM).
+  const {
+    slotProps: _slotProps,
+    inputRef: _inputRef,
+    ...forwardedProps
+  } = allForwardedProps as typeof allForwardedProps & {
+    slotProps?: unknown;
+    inputRef?: unknown;
+  };
   const pickerContext = usePickerContext();
   const handleRef = useForkRef(pickerContext.triggerRef, pickerContext.rootRef);
   const parsedFormat = useParsedFormat();
