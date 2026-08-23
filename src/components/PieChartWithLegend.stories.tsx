@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import ChartUserByCountry from './ChartUserByCountry';
+import PieChartWithLegend from './PieChartWithLegend';
 
 const meta = {
-  title: 'Components/ChartUserByCountry',
-  component: ChartUserByCountry,
+  title: 'Components/PieChartWithLegend',
+  component: PieChartWithLegend,
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
   },
-} satisfies Meta<typeof ChartUserByCountry>;
+} satisfies Meta<typeof PieChartWithLegend>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -1,7 +1,7 @@
 import { DataGrid } from '@mui/x-data-grid';
 import { columns, rows } from '../internals/data/gridData';
 
-export default function CustomizedDataGrid() {
+export default function CustomizedDataTable() {
   return (
     <DataGrid
       checkboxSelection

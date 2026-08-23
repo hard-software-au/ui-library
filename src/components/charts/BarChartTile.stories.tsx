@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import PageViewsBarChart from './PageViewsBarChart';
+import BarChartTile from './BarChartTile.tsx';
 
 const meta = {
-  title: 'Components/PageViewsBarChart',
-  component: PageViewsBarChart,
+  title: 'Components/Charts/BarChartTile',
+  component: BarChartTile,
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
   },
-} satisfies Meta<typeof PageViewsBarChart>;
+} satisfies Meta<typeof BarChartTile>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Copyright from '../internals/components/Copyright';
-import ChartUserByCountry from './ChartUserByCountry';
+import PieChartWithLegend from './PieChartWithLegend';
 import CustomizedTreeView from './CustomizedTreeView';
-import CustomizedDataGrid from './CustomizedDataGrid';
+import CustomizedDataTable from './CustomizedDataTable';
 import HighlightedCard from './HighlightedCard';
-import PageViewsBarChart from './PageViewsBarChart';
+import BarChartTile from './BarChartTile.tsx';
 import SessionsChart from './SessionsChart';
 import StatCard from './StatCard';
 import type { StatCardProps } from './StatCard';
@@ -70,7 +70,7 @@ export default function MainGrid() {
           <SessionsChart />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-          <PageViewsBarChart />
+          <BarChartTile />
         </Grid>
       </Grid>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
@@ -78,7 +78,7 @@ export default function MainGrid() {
       </Typography>
       <Grid container spacing={2} columns={12}>
         <Grid size={{ xs: 12, lg: 9 }}>
-          <CustomizedDataGrid />
+          <CustomizedDataTable />
         </Grid>
         <Grid size={{ xs: 12, lg: 3 }}>
           <Stack
@@ -86,7 +86,7 @@ export default function MainGrid() {
             sx={{ gap: 2 }}
           >
             <CustomizedTreeView />
-            <ChartUserByCountry />
+            <PieChartWithLegend />
           </Stack>
         </Grid>
       </Grid>
