@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import StatCard from './StatCard';
+import StatCard from './StatCard.tsx';
 
 const meta = {
-  title: 'Components/StatCard',
+  title: 'Components/charts/StatCard',
   component: StatCard,
   tags: ['autodocs'],
   parameters: {

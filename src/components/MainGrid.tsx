@@ -9,8 +9,8 @@ import CustomizedDataTable from './CustomizedDataTable';
 import HighlightedCard from './HighlightedCard';
 import BarChartTile from './charts/BarChartTile.tsx';
 import SessionsChart from './SessionsChart';
-import StatCard from './StatCard';
-import type { StatCardProps } from './StatCard';
+import StatCard from './charts/StatCard.tsx';
+import type { StatCardProps } from './charts/StatCard.tsx';
 
 const data: StatCardProps[] = [
   {
