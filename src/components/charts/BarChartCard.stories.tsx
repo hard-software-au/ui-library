@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import BarChartTile from './BarChartTile.tsx';
+import BarChartCard from './BarChartCard.tsx';
 
 const meta = {
-  title: 'Components/Charts/BarChartTile',
-  component: BarChartTile,
+  title: 'Components/Charts/BarChartCard',
+  component: BarChartCard,
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
   },
-} satisfies Meta<typeof BarChartTile>;
+} satisfies Meta<typeof BarChartCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -35,7 +35,7 @@ const yAxis = [
   }
 ]
 
-export const Default: Story = {
+export const WithoutSummary: Story = {
   args: {
     title: "Page views and downloads",
     description: "Page views and downloads for the last 6 months",
@@ -44,7 +44,7 @@ export const Default: Story = {
   }
 };
 
-export const BarchartWithSummary: Story = {
+export const WithSummary: Story = {
   args: {
     title: "Page views and downloads",
     description: "Page views and downloads for the last 6 months",

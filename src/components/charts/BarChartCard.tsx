@@ -12,7 +12,7 @@ export interface BarChartTileProps extends BarChartProps {
   label?: string;
 }
 
-export default function BarChartTile(props: BarChartTileProps) {
+export default function BarChartCard(props: BarChartTileProps) {
 
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>

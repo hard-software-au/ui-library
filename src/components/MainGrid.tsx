@@ -7,10 +7,10 @@ import PieChartWithLegend from './PieChartWithLegend';
 import CustomizedTreeView from './CustomizedTreeView';
 import CustomizedDataTable from './CustomizedDataTable';
 import HighlightedCard from './HighlightedCard';
-import BarChartTile from './charts/BarChartTile.tsx';
+import BarChartCard, {type BarChartTileProps} from './charts/BarChartCard.tsx';
 import SessionsChart from './SessionsChart';
-import StatCard from './charts/StatCard.tsx';
-import type { StatCardProps } from './charts/StatCard.tsx';
+import SparklineCard from './charts/SparklineCard.tsx';
+import type { StatCardProps } from './charts/SparklineCard.tsx';
 
 const data: StatCardProps[] = [
   {
@@ -45,6 +45,35 @@ const data: StatCardProps[] = [
   },
 ];
 
+const barChartTileData: BarChartTileProps = {
+  title: "Page views and downloads",
+  description: "Page views and downloads for the last 6 months",
+  summary: "1.3M",
+  label: "-8%",
+  xAxis: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+  yAxis: [
+    {
+      id: 'page-views',
+      label: 'Page views',
+      data: [2234, 3872, 2998, 4125, 3357, 2789, 2998],
+      stackGroup: 'A',
+    },
+    {
+      id: 'downloads',
+      label: 'Downloads',
+      data: [3098, 4215, 2384, 2101, 4752, 3593, 2384],
+      stackGroup: 'A',
+    },
+    {
+      id: 'conversions',
+      label: 'Conversions',
+      data: [4051, 2275, 3129, 4693, 3904, 2038, 2275],
+      stackGroup: 'A',
+    }
+  ],
+  showLegend: false
+}
+
 export default function MainGrid() {
   return (
     <Box sx={{ width: '100%', maxWidth: { sm: '100%', md: '1700px' } }}>
@@ -60,17 +89,17 @@ export default function MainGrid() {
       >
         {data.map((card, index) => (
           <Grid key={index} size={{ xs: 12, sm: 6, lg: 3 }}>
-            <StatCard {...card} />
+            <SparklineCard {...card} />
           </Grid>
         ))}
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
           <HighlightedCard />
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+        <Grid size={12}>
           <SessionsChart />
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <BarChartTile />
+        <Grid size={12}>
+          <BarChartCard {...barChartTileData} />
         </Grid>
       </Grid>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
