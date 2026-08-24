@@ -10,10 +10,11 @@ export interface BarChartProps {
     data: number[],
     // The key that identifies the stacking group. Series with the same stack property will be stacked together.
     stackGroup: string,
-  }[]
+  }[],
+  showLegend?: boolean
 }
 
-export default function BarChart(barChartProps: BarChartProps) {
+export default function BarChart({xAxis, yAxis, showLegend = true}: BarChartProps) {
   const theme = useTheme();
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,
@@ -21,7 +22,7 @@ export default function BarChart(barChartProps: BarChartProps) {
     (theme.vars || theme).palette.primary.light,
   ];
 
-  const barSeries: BarSeries[] = barChartProps.yAxis.map(group => {
+  const barSeries: BarSeries[] = yAxis.map(group => {
     return {
       id: group.id,
       label: group.label,
@@ -38,7 +39,7 @@ export default function BarChart(barChartProps: BarChartProps) {
         {
           scaleType: 'band',
           categoryGapRatio: 0.5,
-          data: barChartProps.xAxis,
+          data: xAxis,
           height: 24,
         },
       ]}
@@ -47,7 +48,7 @@ export default function BarChart(barChartProps: BarChartProps) {
       height={250}
       margin={{ left: 0, right: 0, top: 20, bottom: 0 }}
       grid={{ horizontal: true }}
-      hideLegend
+      hideLegend={!showLegend}
     />
   );
 }
