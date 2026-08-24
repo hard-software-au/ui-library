@@ -1,7 +1,8 @@
-import { alpha } from '@mui/material/styles';
 import type { Theme } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import type { TreeViewComponents } from '@mui/x-tree-view/themeAugmentation';
-import { gray, brand } from '../themePrimitives';
+
+import { brand,gray } from '../themePrimitives';
 
 export const treeViewCustomizations: TreeViewComponents<Theme> = {
   MuiTreeItem: {

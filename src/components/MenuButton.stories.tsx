@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import NotificationsRoundedIcon from '@mui/icons-material/NotificationsRounded';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import MenuButton from './MenuButton';
 
 const meta = {

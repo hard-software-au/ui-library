@@ -1,16 +1,17 @@
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+
 import Copyright from '../internals/components/Copyright';
-import PieChartWithLegend from './PieChartWithLegend';
-import CustomizedTreeView from './CustomizedTreeView';
-import CustomizedDataTable from './CustomizedDataTable';
-import HighlightedCard from './HighlightedCard';
-import BarChartCard, {type BarChartTileProps} from './charts/BarChartCard.tsx';
-import SessionsChart from './SessionsChart';
-import SparklineCard from './charts/SparklineCard.tsx';
+import BarChartCard, { type BarChartTileProps } from './charts/BarChartCard.tsx';
 import type { StatCardProps } from './charts/SparklineCard.tsx';
+import SparklineCard from './charts/SparklineCard.tsx';
+import CustomizedDataTable from './CustomizedDataTable';
+import CustomizedTreeView from './CustomizedTreeView';
+import HighlightedCard from './HighlightedCard';
+import PieChartWithLegend from './PieChartWithLegend';
+import SessionsChart from './SessionsChart';
 
 const data: StatCardProps[] = [
   {

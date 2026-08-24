@@ -1,9 +1,10 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import LineChart, {type LineChartProps} from "./LineChart";
+import Typography from '@mui/material/Typography';
+
+import LineChart, { type LineChartProps } from "./LineChart";
 
 export interface LineChartCardProps extends LineChartProps {
   title: string;

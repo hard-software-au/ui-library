@@ -1,5 +1,5 @@
-import {BarChart as Chart, type BarSeries} from '@mui/x-charts/BarChart';
 import { useTheme } from '@mui/material/styles';
+import { BarChart as Chart, type BarSeries } from '@mui/x-charts/BarChart';
 
 export interface BarChartProps {
   // This assumes each yAxis.data's length is normalised to be the same length as xAxis
@@ -14,7 +14,7 @@ export interface BarChartProps {
   showLegend?: boolean
 }
 
-export default function BarChart({xAxis, yAxis, showLegend = true}: BarChartProps) {
+export default function BarChart({ xAxis, yAxis, showLegend = true }: BarChartProps) {
   const theme = useTheme();
   const colorPalette = [
     (theme.vars || theme).palette.primary.dark,

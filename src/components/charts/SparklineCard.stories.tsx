@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import SparklineCard from './SparklineCard.tsx';
 
 const meta = {

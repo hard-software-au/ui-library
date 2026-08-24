@@ -1,5 +1,5 @@
 import { useTheme } from '@mui/material/styles';
-import { LineChart as Chart} from '@mui/x-charts/LineChart';
+import { LineChart as Chart } from '@mui/x-charts/LineChart';
 
 export interface LineChartProps {
   // This assumes each yAxis.data's length is normalised to be the same length as xAxis

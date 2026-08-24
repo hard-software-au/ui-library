@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import BarChartCard from './BarChartCard.tsx';
 
 const meta = {

@@ -1,7 +1,7 @@
-import { useTheme } from '@mui/material/styles';
-import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
-import { lineClasses } from '@mui/x-charts/LineChart';
 import Box from "@mui/material/Box";
+import { useTheme } from '@mui/material/styles';
+import { lineClasses } from '@mui/x-charts/LineChart';
+import { SparkLineChart } from '@mui/x-charts/SparkLineChart';
 
 export interface SparklineProps {
   trend: 'up' | 'down' | 'neutral',

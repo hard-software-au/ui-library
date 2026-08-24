@@ -1,12 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import {
-  SitemarkIcon,
-  IndiaFlag,
-  UsaFlag,
   BrazilFlag,
   GlobeFlag,
+  IndiaFlag,
+  SitemarkIcon,
+  UsaFlag,
 } from './CustomIcons';
 
 function IconGallery() {
