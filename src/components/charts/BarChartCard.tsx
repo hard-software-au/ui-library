@@ -32,7 +32,7 @@ export default function BarChartCard(props: BarChartTileProps) {
             <Typography variant="h4" component="p">
               {props.summary}
             </Typography>
-            <Chip size="small" color="error" label={props.label} />
+            {props.label && <Chip size="small" color="error" label={props.label} />}
           </Stack>)}
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             {props.description}

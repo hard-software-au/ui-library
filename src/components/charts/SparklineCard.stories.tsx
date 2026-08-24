@@ -54,8 +54,9 @@ const sparklineData = [
 export const Up: Story = {
   args: {
     title: 'Users',
-    value: '14k',
-    interval: 'Last 30 days',
+    summary: '14k',
+    label: '+25%',
+    description: 'Last 30 days',
     trend: 'up',
     points: points,
     data: sparklineData,
@@ -65,8 +66,9 @@ export const Up: Story = {
 export const Down: Story = {
   args: {
     title: 'Conversions',
-    value: '325',
-    interval: 'Last 30 days',
+    summary: '325',
+    label: '-25%',
+    description: 'Last 30 days',
     trend: 'down',
     points: points,
     data: sparklineData.slice().reverse(),
@@ -76,8 +78,9 @@ export const Down: Story = {
 export const Neutral: Story = {
   args: {
     title: 'Event count',
-    value: '200k',
-    interval: 'Last 30 days',
+    summary: '200k',
+    label: '5%',
+    description: 'Last 30 days',
     trend: 'neutral',
     points: points,
     data: sparklineData,

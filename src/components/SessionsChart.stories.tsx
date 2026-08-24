@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import SessionsChart from './SessionsChart';
 
 const meta = {
-  title: 'Components/SessionsChart',
+  title: 'Components/LineChartCard',
   component: SessionsChart,
   tags: ['autodocs'],
   parameters: {

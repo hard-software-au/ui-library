@@ -7,8 +7,9 @@ import Sparkline, {type SparklineProps} from "./Sparkline.tsx";
 
 export interface SparklineCardProps extends SparklineProps {
   title: string;
-  value: string;
-  interval: string;
+  description: string;
+  summary?: string;
+  label?: string;
 }
 
 export default function SparklineCard(props: SparklineCardProps) {
@@ -19,7 +20,6 @@ export default function SparklineCard(props: SparklineCardProps) {
   };
 
   const color = labelColors[props.trend];
-  const trendValues = { up: '+25%', down: '-25%', neutral: '+5%' };
 
   return (
     <Card variant="outlined" sx={{ height: '100%', flexGrow: 1 }}>
@@ -32,7 +32,7 @@ export default function SparklineCard(props: SparklineCardProps) {
           sx={{ justifyContent: 'space-between', flexGrow: '1', gap: 1 }}
         >
           <Stack sx={{ justifyContent: 'space-between' }}>
-            <Stack
+            {props.summary && <Stack
               direction="row"
               sx={{
                 alignContent: { xs: 'center', sm: 'flex-start' },
@@ -41,12 +41,12 @@ export default function SparklineCard(props: SparklineCardProps) {
               }}
             >
               <Typography variant="h4" component="p">
-                {props.value}
+                {props.summary}
               </Typography>
-              <Chip size="small" color={color} label={trendValues[props.trend]} />
-            </Stack>
+              {props.label && <Chip size="small" color={color} label={props.label} />}
+            </Stack>}
             <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-              {props.interval}
+              {props.description}
             </Typography>
           </Stack>
           <Sparkline trend={props.trend} points={props.points} data={props.data} />
