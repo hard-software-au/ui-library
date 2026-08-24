@@ -7,7 +7,7 @@ import PieChartWithLegend from './PieChartWithLegend';
 import CustomizedTreeView from './CustomizedTreeView';
 import CustomizedDataTable from './CustomizedDataTable';
 import HighlightedCard from './HighlightedCard';
-import BarChartTile from './BarChartTile.tsx';
+import BarChartTile from './charts/BarChartTile.tsx';
 import SessionsChart from './SessionsChart';
 import StatCard from './StatCard';
 import type { StatCardProps } from './StatCard';
