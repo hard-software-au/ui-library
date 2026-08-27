@@ -6,14 +6,14 @@ import Typography from '@mui/material/Typography';
 
 import BarChart, { type BarChartProps } from "./BarChart";
 
-export interface BarChartTileProps extends BarChartProps {
+export interface BarChartCardProps extends BarChartProps {
   title: string;
   description?: string;
   summary?: string;
   label?: string;
 }
 
-export default function BarChartCard(props: BarChartTileProps) {
+export default function BarChartCard(props: BarChartCardProps) {
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>

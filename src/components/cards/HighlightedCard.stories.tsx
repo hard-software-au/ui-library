@@ -15,7 +15,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const prefixContent = <InsightsRoundedIcon />
+const prefixContent = <InsightsRoundedIcon />;
+
 export const Default: Story = {
   args: {
     title: "Explore your data",

@@ -5,15 +5,15 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import Copyright from '../internals/components/Copyright';
-import HighlightedCard from './cards/HighlightedCard.tsx';
-import SummaryCard from "./cards/SummaryCard.tsx";
-import BarChartCard, { type BarChartTileProps } from './charts/BarChartCard';
+import HighlightedCard from './cards/HighlightedCard';
+import SummaryCard from "./cards/SummaryCard";
+import BarChartCard, { type BarChartCardProps } from './charts/BarChartCard';
+import LineChartCard, { type LineChartCardProps } from "./charts/LineChartCard";
 import type { SparklineCardProps } from './charts/SparklineCard';
 import SparklineCard from './charts/SparklineCard';
 import CustomizedDataTable from './CustomizedDataTable';
 import CustomizedTreeView from './CustomizedTreeView';
 import PieChartWithLegend from './PieChartWithLegend';
-import SessionsChart from './SessionsChart';
 
 const points = [
   "Aug 1",
@@ -85,7 +85,7 @@ const data: SparklineCardProps[] = [
   },
 ];
 
-const barChartTileData: BarChartTileProps = {
+const barChartCardData: BarChartCardProps = {
   title: "Page views and downloads",
   description: "Page views and downloads for the last 6 months",
   summary: "1.3M",
@@ -112,6 +112,84 @@ const barChartTileData: BarChartTileProps = {
     }
   ],
   showLegend: false
+}
+
+const lineChartData: LineChartCardProps = {
+  title: "Sessions",
+  description: "Sessions per day for the last 30 days",
+  xAxis: [
+    "Aug 1",
+    "Aug 2",
+    "Aug 3",
+    "Aug 4",
+    "Aug 5",
+    "Aug 6",
+    "Aug 7",
+    "Aug 8",
+    "Aug 9",
+    "Aug 10",
+    "Aug 11",
+    "Aug 12",
+    "Aug 13",
+    "Aug 14",
+    "Aug 15",
+    "Aug 16",
+    "Aug 17",
+    "Aug 18",
+    "Aug 19",
+    "Aug 20",
+    "Aug 21",
+    "Aug 22",
+    "Aug 23",
+    "Aug 24",
+    "Aug 25",
+    "Aug 26",
+    "Aug 27",
+    "Aug 28",
+    "Aug 29",
+    "Aug 30",
+    "Aug 31"
+  ],
+  yAxis: [
+    {
+      id: 'direct',
+      label: 'Direct',
+      curve: 'linear',
+      stackId: 'total',
+      stackOrder: 'ascending',
+      data: [
+        300, 900, 600, 1200, 1500, 1800, 2400, 2100, 2700, 3000, 1800, 3300,
+        3600, 3900, 4200, 4500, 3900, 4800, 5100, 5400, 4800, 5700, 6000,
+        6300, 6600, 6900, 7200, 7500, 7800, 8100, 8500
+      ],
+    },
+    {
+      id: 'referral',
+      label: 'Referral',
+      curve: 'linear',
+      stackId: 'total',
+      stackOrder: 'ascending',
+      data: [
+        500, 900, 700, 1400, 1100, 1700, 2300, 2000, 2600, 2900, 2300, 3200,
+        3500, 3800, 4100, 4400, 2900, 4700, 5000, 5300, 5600, 5900, 6200,
+        6500, 5600, 6800, 7100, 7400, 7700, 8000, 8300
+      ],
+    },
+    {
+      id: 'organic',
+      label: 'Organic',
+      curve: 'linear',
+      stackId: 'total',
+      stackOrder: 'ascending',
+      data: [
+        1000, 1500, 1200, 1700, 1300, 2000, 2400, 2200, 2600, 2800, 2500,
+        3000, 3400, 3700, 3200, 3900, 4100, 3500, 4300, 4500, 4000, 4700,
+        5000, 5200, 4800, 5400, 5600, 5900, 6100, 6300, 6400
+      ],
+    }
+  ],
+  curveType: 'linear',
+  areaUnderGraph: true,
 }
 
 export default function MainGrid() {
@@ -149,10 +227,10 @@ export default function MainGrid() {
           />
         </Grid>
         <Grid size={12}>
-          <SessionsChart />
+          <LineChartCard {...lineChartData} />
         </Grid>
         <Grid size={12}>
-          <BarChartCard {...barChartTileData} />
+          <BarChartCard {...barChartCardData} />
         </Grid>
       </Grid>
       <Typography component="h2" variant="h6" sx={{ mb: 2 }}>
