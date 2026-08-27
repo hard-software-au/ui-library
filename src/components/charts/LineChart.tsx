@@ -1,16 +1,26 @@
 import { useTheme } from '@mui/material/styles';
 import { LineChart as Chart, lineClasses } from '@mui/x-charts/LineChart';
 
+export interface LineChartYAxis {
+  id: string,
+  label?: string,
+  position?: 'left' | 'right',
+}
+
 export interface LineChartProps {
   // This assumes each yAxis.data's length is normalised to be the same length as xAxis
   xAxis: string[],
-  yAxis: {
+  // One or two y-axes. Defaults to a single unlabelled left axis when omitted.
+  yAxes?: LineChartYAxis[],
+  series: {
     id: string,
     label: string,
     curve: string,
     stackId: string,
     stackOrder: 'ascending',
     data: number[],
+    // Which axis (from `yAxes`) this series plots against. Defaults to the first axis.
+    yAxisId?: string,
   }[],
   curveType: 'linear' | 'natural' | 'step',
   areaUnderGraph: boolean,
@@ -48,20 +58,30 @@ export default function LineChart(props: LineChartProps) {
           height: 24,
         },
       ]}
-      yAxis={[{ width: 50 }]}
+      yAxis={
+        props.yAxes && props.yAxes.length > 0
+          ? props.yAxes.map((axis) => ({
+              id: axis.id,
+              label: axis.label,
+              position: axis.position,
+              width: 50,
+            }))
+          : [{ width: 50 }]
+      }
       series={
-      props.yAxis.map(item => {
-        return {
-          id: item.id,
-          label: item.label,
-          curve: props.curveType,
-          stack: item.stackId,
-          area: props.areaUnderGraph,
-          stackOrder: 'ascending',
-          data: item.data
-        }
-      })
-    }
+        props.series.map(item => {
+          return {
+            id: item.id,
+            label: item.label,
+            curve: props.curveType,
+            stack: item.stackId,
+            area: props.areaUnderGraph,
+            stackOrder: 'ascending',
+            data: item.data,
+            yAxisId: item.yAxisId,
+          }
+        })
+      }
       height={250}
       margin={{ left: 0, right: 20, top: 20, bottom: 0 }}
       grid={{ horizontal: true }}

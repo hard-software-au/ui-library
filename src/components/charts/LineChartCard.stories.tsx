@@ -34,7 +34,7 @@ export const Default: Story = {
     title: "Sessions",
     description: "Sessions per day for the last 30 days",
     xAxis: getDaysInMonth(8, 2026),
-    yAxis: [
+    series: [
       {
         id: 'direct',
         label: 'Direct',
@@ -74,5 +74,47 @@ export const Default: Story = {
     ],
     curveType: 'linear',
     areaUnderGraph: true,
+  }
+};
+
+export const TwoYAxes: Story = {
+  args: {
+    title: "Revenue vs. Conversion rate",
+    description: "Revenue (left axis) against conversion rate (right axis) for the last 30 days",
+    xAxis: getDaysInMonth(8, 2026),
+    yAxes: [
+      { id: 'revenue', label: 'Revenue ($)', position: 'left' },
+      { id: 'conversionRate', label: 'Conversion rate (%)', position: 'right' },
+    ],
+    series: [
+      {
+        id: 'revenue',
+        label: 'Revenue',
+        curve: 'linear',
+        stackId: 'revenue',
+        stackOrder: 'ascending',
+        yAxisId: 'revenue',
+        data: [
+          3000, 3200, 3100, 3400, 3600, 3800, 4000, 3900, 4200, 4400, 4300,
+          4600, 4800, 5000, 5200, 5100, 5400, 5600, 5800, 6000, 5900, 6200,
+          6400, 6600, 6800, 7000, 6900, 7200, 7400, 7600, 7800
+        ],
+      },
+      {
+        id: 'conversionRate',
+        label: 'Conversion rate',
+        curve: 'linear',
+        stackId: 'conversionRate',
+        stackOrder: 'ascending',
+        yAxisId: 'conversionRate',
+        data: [
+          2.1, 2.3, 2.0, 2.4, 2.6, 2.5, 2.8, 2.7, 3.0, 3.2, 3.1, 3.4, 3.3,
+          3.6, 3.5, 3.8, 3.7, 4.0, 3.9, 4.2, 4.1, 4.4, 4.3, 4.6, 4.5, 4.8,
+          4.7, 5.0, 4.9, 5.2, 5.1
+        ],
+      },
+    ],
+    curveType: 'linear',
+    areaUnderGraph: false,
   }
 };

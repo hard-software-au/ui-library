@@ -150,7 +150,7 @@ const lineChartData: LineChartCardProps = {
     "Aug 30",
     "Aug 31"
   ],
-  yAxis: [
+  series: [
     {
       id: 'direct',
       label: 'Direct',

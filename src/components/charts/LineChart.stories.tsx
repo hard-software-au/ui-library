@@ -32,7 +32,7 @@ function getDaysInMonth(month: number, year: number) {
 export const Default: Story = {
   args: {
     xAxis: getDaysInMonth(8, 2026),
-    yAxis: [
+    series: [
       {
         id: 'direct',
         label: 'Direct',
@@ -78,7 +78,7 @@ export const Default: Story = {
 export const OverlayLineWithAreaChart: Story = {
   args: {
     xAxis: getDaysInMonth(8, 2026),
-    yAxis: [
+    series: [
       {
         id: 'direct',
         label: 'Direct',
@@ -124,7 +124,7 @@ export const OverlayLineWithAreaChart: Story = {
 export const OverlayLineWithoutAreaChart: Story = {
   args: {
     xAxis: getDaysInMonth(8, 2026),
-    yAxis: [
+    series: [
       {
         id: 'direct',
         label: 'Direct',
@@ -167,11 +167,10 @@ export const OverlayLineWithoutAreaChart: Story = {
   },
 };
 
-
 export const DashLine: Story = {
   args: {
     xAxis: getDaysInMonth(8, 2026),
-    yAxis: [
+    series: [
       {
         id: 'direct',
         label: 'Direct',
@@ -214,3 +213,56 @@ export const DashLine: Story = {
     dashLine: true,
   },
 };
+
+export const TwoYAxis: Story = {
+  args: {
+    xAxis: getDaysInMonth(8, 2026),
+    yAxes: [
+      { id: 'revenue', label: 'Revenue ($)', position: 'left' },
+      { id: 'conversionRate', label: 'Conversion rate (%)', position: 'right' },
+    ],
+    series: [
+      {
+        id: 'revenue',
+        label: 'Revenue Company 1',
+        curve: 'linear',
+        stackId: 'revenue',
+        stackOrder: 'ascending',
+        yAxisId: 'revenue',
+        data: [
+          3000, 3200, 3100, 3400, 3600, 3800, 4000, 3900, 4200, 4400, 4300,
+          4600, 4800, 5000, 5200, 5100, 5400, 5600, 5800, 6000, 5900, 6200,
+          6400, 6600, 6800, 7000, 6900, 7200, 7400, 7600, 7800
+        ],
+      },
+      {
+        id: 'revenue2',
+        label: 'Revenue Company 2',
+        curve: 'linear',
+        stackId: 'revenue2',
+        stackOrder: 'ascending',
+        yAxisId: 'revenue',
+        data: [
+          6000, 6200, 6100, 6400, 6600, 6800, 6000, 6900, 6200, 6400, 6300,
+          5600, 5800, 5600, 5400, 5000, 4800, 4600, 4400, 4200, 4000, 3200,
+          3400, 3600, 3800, 4000, 3900, 4200, 4400, 4600, 4800
+        ],
+      },
+      {
+        id: 'conversionRate',
+        label: 'Conversion rate',
+        curve: 'linear',
+        stackId: 'conversionRate',
+        stackOrder: 'ascending',
+        yAxisId: 'conversionRate',
+        data: [
+          2.1, 2.3, 2.0, 2.4, 2.6, 2.5, 2.8, 2.7, 3.0, 3.2, 3.1, 3.4, 3.3,
+          3.6, 3.5, 3.8, 3.7, 4.0, 3.9, 4.2, 4.1, 4.4, 4.3, 4.6, 4.5, 4.8,
+          4.7, 5.0, 4.9, 5.2, 5.1
+        ],
+      },
+    ],
+    curveType: 'linear',
+    areaUnderGraph: false,
+  }
+}

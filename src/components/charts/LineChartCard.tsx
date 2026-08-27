@@ -35,10 +35,10 @@ export default function LineChartCard(props: LineChartCardProps) {
             {props.label && <Chip size="small" color="success" label={props.label} />}
           </Stack>}
           <Typography variant="caption" sx={{ color: 'text.secondary' }}>
-            Sessions per day for the last 30 days
+            {props.description}
           </Typography>
         </Stack>
-        <LineChart xAxis={props.xAxis} yAxis={props.yAxis} curveType={props.curveType} areaUnderGraph={true} />
+        <LineChart {...props} />
       </CardContent>
     </Card>
   );
