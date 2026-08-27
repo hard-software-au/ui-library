@@ -1,5 +1,5 @@
 import { useTheme } from '@mui/material/styles';
-import { LineChart as Chart } from '@mui/x-charts/LineChart';
+import { LineChart as Chart, lineClasses } from '@mui/x-charts/LineChart';
 
 export interface LineChartProps {
   // This assumes each yAxis.data's length is normalised to be the same length as xAxis
@@ -14,6 +14,7 @@ export interface LineChartProps {
   }[],
   curveType: 'linear' | 'natural' | 'step',
   areaUnderGraph: boolean,
+  dashLine?: boolean,
 }
 
 function AreaGradient({ color, id }: { color: string; id: string }) {
@@ -74,6 +75,12 @@ export default function LineChart(props: LineChartProps) {
         '& .MuiAreaElement-series-direct': {
           fill: "url('#direct')",
         },
+        ...(props.dashLine && {
+          [`& .${lineClasses.line}`]: {
+            strokeDasharray: '10 5',
+            strokeWidth: 1,
+          },
+        }),
       }}
       hideLegend
     >
