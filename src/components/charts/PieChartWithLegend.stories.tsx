@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import PieChartWithLegend from './PieChartWithLegend';
 
 const meta = {
-  title: 'Components/PieChartWithLegend',
+  title: 'Components/Charts/PieChartWithLegend',
   component: PieChartWithLegend,
   tags: ['autodocs'],
   parameters: {

@@ -2,18 +2,19 @@ import * as React from 'react';
 
 import { styled } from '@mui/material/styles';
 import { useDrawingArea } from '@mui/x-charts/hooks';
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart as Chart } from '@mui/x-charts/PieChart';
 
-export interface DonutChartProps extends DonutChartCenterProps {
+export interface PieChartProps extends PieChartCenterProps {
+  isDonut: boolean;
   data: {
     label: string;
     value: number;
   }[];
 }
 
-interface DonutChartCenterProps {
-  primaryText: string;
-  secondaryText: string;
+interface PieChartCenterProps {
+  primaryText?: string;
+  secondaryText?: string;
 }
 
 interface StyledTextProps {
@@ -58,7 +59,7 @@ const StyledText = styled('text', {
   ],
 }));
 
-function DonutChartCenterLabel({ primaryText, secondaryText }: DonutChartCenterProps) {
+function PieChartCenterLabel({ primaryText, secondaryText }: PieChartCenterProps) {
   const { width, height, left, top } = useDrawingArea();
   const primaryY = top + height / 2 - 10;
   const secondaryY = primaryY + 24;
@@ -82,9 +83,9 @@ const colors = [
   'hsl(220, 20%, 25%)',
 ];
 
-export default function DonutChart(props: DonutChartProps) {
+export default function PieChart(props: PieChartProps) {
   return (
-    <PieChart
+    <Chart
       colors={colors}
       margin={{
         left: 80,
@@ -95,7 +96,7 @@ export default function DonutChart(props: DonutChartProps) {
       series={[
         {
           data: props.data,
-          innerRadius: 75,
+          innerRadius: props.isDonut ? 75 : 0,
           outerRadius: 100,
           paddingAngle: 0,
           highlightScope: { fade: 'global', highlight: 'item' },
@@ -105,7 +106,7 @@ export default function DonutChart(props: DonutChartProps) {
       width={260}
       hideLegend
     >
-      <DonutChartCenterLabel primaryText={props.primaryText} secondaryText={props.secondaryText} />
-    </PieChart>
+      {props.isDonut && <PieChartCenterLabel primaryText={props.primaryText} secondaryText={props.secondaryText} />}
+    </Chart>
   );
 }

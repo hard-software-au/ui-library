@@ -9,11 +9,11 @@ import HighlightedCard from './cards/HighlightedCard';
 import SummaryCard from "./cards/SummaryCard";
 import BarChartCard, { type BarChartCardProps } from './charts/BarChartCard';
 import LineChartCard, { type LineChartCardProps } from "./charts/LineChartCard";
+import PieChartWithLegend from './charts/PieChartWithLegend';
 import type { SparklineCardProps } from './charts/SparklineCard';
 import SparklineCard from './charts/SparklineCard';
 import CustomizedDataTable from './CustomizedDataTable';
 import CustomizedTreeView from './CustomizedTreeView';
-import PieChartWithLegend from './PieChartWithLegend';
 
 const points = [
   "Aug 1",

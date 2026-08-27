@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import DonutChartCard from './DonutChartCard';
+import PieChartCard from './PieChartCard';
 
 const meta = {
-  title: 'Components/Charts/DonutChartCard',
-  component: DonutChartCard,
+  title: 'Components/Charts/PieChartCard',
+  component: PieChartCard,
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
   },
-} satisfies Meta<typeof DonutChartCard>;
+} satisfies Meta<typeof PieChartCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -20,6 +20,7 @@ export const Default: Story = {
     description: "Monthly active user for the last 6 months",
     summary: "98.5K",
     label: "-8%",
+    isDonut: false,
     primaryText: "98.5K",
     secondaryText: "Total users",
     data: [

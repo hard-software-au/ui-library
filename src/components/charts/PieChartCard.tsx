@@ -4,16 +4,16 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import DonutChart, { type DonutChartProps } from "./DonutChart";
+import PieChart, { type PieChartProps } from "./PieChart";
 
-export interface DonutChartCardProps extends DonutChartProps {
+export interface PieChartCardProps extends PieChartProps {
   title: string;
   description?: string;
   summary?: string;
   label?: string;
 }
 
-export default function BarChartCard(props: DonutChartCardProps) {
+export default function PieChartCard(props: PieChartCardProps) {
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>
@@ -38,7 +38,7 @@ export default function BarChartCard(props: DonutChartCardProps) {
             {props.description}
           </Typography>
         </Stack>
-        <DonutChart {...props} />
+        <PieChart {...props} />
       </CardContent>
     </Card>
   );
