@@ -1,24 +1,61 @@
+import InsightsRoundedIcon from "@mui/icons-material/InsightsRounded";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import Copyright from '../internals/components/Copyright';
-import BarChartCard, { type BarChartTileProps } from './charts/BarChartCard.tsx';
-import type { StatCardProps } from './charts/SparklineCard.tsx';
-import SparklineCard from './charts/SparklineCard.tsx';
+import HighlightedCard from './cards/HighlightedCard.tsx';
+import SummaryCard from "./cards/SummaryCard.tsx";
+import BarChartCard, { type BarChartTileProps } from './charts/BarChartCard';
+import type { SparklineCardProps } from './charts/SparklineCard';
+import SparklineCard from './charts/SparklineCard';
 import CustomizedDataTable from './CustomizedDataTable';
 import CustomizedTreeView from './CustomizedTreeView';
-import HighlightedCard from './HighlightedCard';
 import PieChartWithLegend from './PieChartWithLegend';
 import SessionsChart from './SessionsChart';
 
-const data: StatCardProps[] = [
+const points = [
+  "Aug 1",
+  "Aug 2",
+  "Aug 3",
+  "Aug 4",
+  "Aug 5",
+  "Aug 6",
+  "Aug 7",
+  "Aug 8",
+  "Aug 9",
+  "Aug 10",
+  "Aug 11",
+  "Aug 12",
+  "Aug 13",
+  "Aug 14",
+  "Aug 15",
+  "Aug 16",
+  "Aug 17",
+  "Aug 18",
+  "Aug 19",
+  "Aug 20",
+  "Aug 21",
+  "Aug 22",
+  "Aug 23",
+  "Aug 24",
+  "Aug 25",
+  "Aug 26",
+  "Aug 27",
+  "Aug 28",
+  "Aug 29",
+  "Aug 30",
+  "Aug 31"
+]
+
+const data: SparklineCardProps[] = [
   {
     title: 'Users',
-    value: '14k',
-    interval: 'Last 30 days',
+    summary: '14k',
+    description: 'Last 30 days',
     trend: 'up',
+    points: points,
     data: [
       200, 24, 220, 260, 240, 380, 100, 240, 280, 240, 300, 340, 320, 360, 340, 380,
       360, 400, 380, 420, 400, 640, 340, 460, 440, 480, 460, 600, 880, 920,
@@ -26,9 +63,10 @@ const data: StatCardProps[] = [
   },
   {
     title: 'Conversions',
-    value: '325',
-    interval: 'Last 30 days',
+    summary: '325',
+    description: 'Last 30 days',
     trend: 'down',
+    points: points,
     data: [
       1640, 1250, 970, 1130, 1050, 900, 720, 1080, 900, 450, 920, 820, 840, 600, 820,
       780, 800, 760, 380, 740, 660, 620, 840, 500, 520, 480, 400, 360, 300, 220,
@@ -36,9 +74,10 @@ const data: StatCardProps[] = [
   },
   {
     title: 'Event count',
-    value: '200k',
-    interval: 'Last 30 days',
+    summary: '200k',
+    description: 'Last 30 days',
     trend: 'neutral',
+    points: points,
     data: [
       500, 400, 510, 530, 520, 600, 530, 520, 510, 730, 520, 510, 530, 620, 510, 530,
       520, 410, 530, 520, 610, 530, 520, 610, 530, 420, 510, 430, 520, 510,
@@ -88,13 +127,26 @@ export default function MainGrid() {
         columns={12}
         sx={{ mb: (theme) => theme.spacing(2) }}
       >
-        {data.map((card, index) => (
-          <Grid key={index} size={{ xs: 12, sm: 6, lg: 3 }}>
-            <SparklineCard {...card} />
-          </Grid>
-        ))}
+        <Grid container size={12}>
+          {data.map((card, index) => (
+            <Grid key={index} size={{ xs: 12, sm: 6, lg: 3 }}>
+              <SummaryCard {...card} />
+            </Grid>
+          ))}
+        </Grid>
+        <Grid container size={12}>
+          {data.map((card, index) => (
+            <Grid key={index} size={{ xs: 12, sm: 6, lg: 3 }}>
+              <SparklineCard {...card} />
+            </Grid>
+          ))}
+        </Grid>
         <Grid size={{ xs: 12, sm: 6, lg: 3 }}>
-          <HighlightedCard />
+          <HighlightedCard
+            title={"Explore your data"}
+            description={"Uncover performance and visitor insights with our data wizardry."}
+            prefix={<InsightsRoundedIcon />}
+          />
         </Grid>
         <Grid size={12}>
           <SessionsChart />

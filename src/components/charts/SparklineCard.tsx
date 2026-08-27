@@ -4,7 +4,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import Sparkline, { type SparklineProps } from "./Sparkline.tsx";
+import Sparkline, { type SparklineProps } from "./Sparkline";
 
 export interface SparklineCardProps extends SparklineProps {
   title: string;

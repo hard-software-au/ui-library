@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import BarChartCard from './BarChartCard.tsx';
+import BarChartCard from './BarChartCard';
 
 const meta = {
   title: 'Components/Charts/BarChartCard',

@@ -4,7 +4,7 @@ import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import BarChart, { type BarChartProps } from "./BarChart.tsx";
+import BarChart, { type BarChartProps } from "./BarChart";
 
 export interface BarChartTileProps extends BarChartProps {
   title: string;
@@ -14,7 +14,6 @@ export interface BarChartTileProps extends BarChartProps {
 }
 
 export default function BarChartCard(props: BarChartTileProps) {
-
   return (
     <Card variant="outlined" sx={{ width: '100%' }}>
       <CardContent>

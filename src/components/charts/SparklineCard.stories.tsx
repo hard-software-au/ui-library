@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import SparklineCard from './SparklineCard.tsx';
+import SparklineCard from './SparklineCard';
 
 const meta = {
-  title: 'Components/charts/SparklineCard',
+  title: 'Components/Charts/SparklineCard',
   component: SparklineCard,
   tags: ['autodocs'],
   parameters: {
@@ -47,6 +47,7 @@ const points = [
   "Aug 30",
   "Aug 31"
 ]
+
 const sparklineData = [
   200, 24, 220, 260, 240, 380, 100, 240, 280, 240, 300, 340, 320, 360, 340,
   380, 360, 400, 380, 420, 400, 440, 420, 460, 440, 480, 460, 500, 480, 520,
