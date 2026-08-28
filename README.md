@@ -30,3 +30,8 @@ If you are developing a production application, we recommend enabling type-aware
 ```
 
 See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+
+## Storybook
+[Storybook](https://hard-software-au.github.io/ui-library/)
+Storybook will be updated upon merge via github action.
+note: there might be a couple of minutes delay from merge to updated.
