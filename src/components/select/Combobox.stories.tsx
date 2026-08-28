@@ -45,5 +45,6 @@ export const MultiselectTruncated: Story = {
     multiple: true,
     placeholder: 'Select fruits',
     truncateTags: true,
+    sx: { width: 420 },
   },
 };

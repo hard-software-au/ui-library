@@ -47,19 +47,17 @@ function TruncatedTags({
 
     // The native input shares the same grid cell as the rendered value in
     // this Autocomplete, so it must be collapsed to avoid covering the chips.
+    // This component only mounts while `renderValue` is actually rendering
+    // tags, so the reset on cleanup below is what restores the input once
+    // the last chip is removed (renderValue stops being called for an empty
+    // selection, so this effect never re-runs with an empty `options`).
     const input = container.parentElement?.querySelector<HTMLInputElement>(
       '.MuiAutocomplete-input',
     );
     if (input) {
-      if (options.length > 0) {
-        input.style.width = '0px';
-        input.style.minWidth = '0px';
-        input.style.flex = '0 1 0px';
-      } else {
-        input.style.width = '';
-        input.style.minWidth = '';
-        input.style.flex = '';
-      }
+      input.style.width = '0px';
+      input.style.minWidth = '0px';
+      input.style.flex = '0 1 0px';
     }
 
     const recalc = () => {
@@ -88,7 +86,14 @@ function TruncatedTags({
 
     const observer = new ResizeObserver(recalc);
     observer.observe(container);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (input) {
+        input.style.width = '';
+        input.style.minWidth = '';
+        input.style.flex = '';
+      }
+    };
   }, [options]);
 
   const hiddenCount = options.length - visibleCount;

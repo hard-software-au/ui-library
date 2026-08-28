@@ -25,8 +25,9 @@ export interface ComboboxProps {
   sx?: SxProps<Theme>;
 }
 
-const OVERFLOW_CHIP_WIDTH = 120;
+const OVERFLOW_CHIP_WIDTH = 80;
 const TAG_GAP = 4;
+const INPUT_RESERVE_WIDTH = 32;
 
 function TruncatedTags({
   options,
@@ -47,41 +48,46 @@ function TruncatedTags({
 
     // The native input shares the same grid cell as the rendered value in
     // this Autocomplete, so it must be collapsed to avoid covering the chips.
-    const input = container.parentElement?.querySelector<HTMLInputElement>(
-      '.MuiAutocomplete-input',
-    );
-    if (input) {
-      if (options.length > 0) {
-        input.style.width = '0px';
-        input.style.minWidth = '0px';
-        input.style.flex = '0 1 0px';
-      } else {
-        input.style.width = '';
-        input.style.minWidth = '';
-        input.style.flex = '';
-      }
-    }
+    const inputRoot = container.parentElement;
+    if (!inputRoot) return;
+    const inputRootStyles = window.getComputedStyle(inputRoot);
+    const inputRootWidth = inputRoot.clientWidth
+      - parseFloat(inputRootStyles.paddingRight)
+      - parseFloat(inputRootStyles.paddingLeft);
 
     const recalc = () => {
-      const available = container.clientWidth;
+      // Combobox stays searchable, so the input keeps its own space in the
+      // row rather than being collapsed the way BasicSelect's read-only
+      // input is.
+      const available = inputRootWidth - INPUT_RESERVE_WIDTH;
       let used = 0;
       let count = 0;
 
       for (let i = 0; i < options.length; i += 1) {
         const el = measureRefs.current[i];
-        if (!el) break;
+        if (!el || !el.parentElement) break;
 
-        const width = el.getBoundingClientRect().width + TAG_GAP;
+        const width = el.parentElement.getBoundingClientRect().width + TAG_GAP;
         const hasMoreAfter = i < options.length - 1;
         const reserve = hasMoreAfter ? OVERFLOW_CHIP_WIDTH : 0;
 
-        if (used + width > available - reserve) break;
-
+        if (used + width > available - reserve) {
+          used += reserve;
+          break;
+        }
         used += width;
         count += 1;
       }
 
       setVisibleCount(Math.max(count, options.length > 0 ? 1 : 0));
+
+      const tagsContainer = container.parentElement?.querySelector<HTMLInputElement>(
+        '.selectedTags',
+      );
+      if (tagsContainer) {
+        const newWidth = used + TAG_GAP;
+        tagsContainer.style.maxWidth = `${newWidth}px`;
+      }
     };
 
     recalc();
@@ -95,6 +101,7 @@ function TruncatedTags({
 
   return (
     <Box
+      className={"selectedTags"}
       ref={containerRef}
       sx={{
         display: 'flex',
@@ -106,17 +113,24 @@ function TruncatedTags({
       }}
     >
       <Box sx={{ position: 'absolute', visibility: 'hidden', overflow: 'hidden', height: 0 }}>
-        <Box sx={{ display: 'flex', gap: `${TAG_GAP}px` }}>
-          {options.map((option, index) => (
-            <Box
-              key={option.value}
-              ref={(el: HTMLDivElement | null) => {
-                measureRefs.current[index] = el;
-              }}
-            >
-              <Chip label={option.label} size="medium" />
-            </Box>
-          ))}
+        <Box sx={{ display: 'flex', gap: `${TAG_GAP}px` }} className={'tagList'}>
+          {options.map((option, index) => {
+            const { ...itemProps } = getItemProps({ index });
+            return (
+              <Box
+                key={option.value}
+              >
+                <Chip
+                  ref={(el: HTMLDivElement | null) => {
+                    measureRefs.current[index] = el;
+                  }}
+                  label={option.label}
+                  size="medium"
+                  {...itemProps}
+                />
+              </Box>
+            )}
+          )}
         </Box>
       </Box>
       {options.map((option, index) => {
@@ -125,7 +139,10 @@ function TruncatedTags({
         return <Chip key={key} label={option.label} size="medium" {...itemProps} />;
       })}
       {hiddenCount > 0 ? (
-        <Chip label={`and ${hiddenCount} other${hiddenCount > 1 ? 's' : ''}`} size="medium" />
+        <Chip
+          label={`+ ${hiddenCount} more`}
+          size="medium"
+        />
       ) : null}
     </Box>
   );
@@ -140,6 +157,8 @@ export default function Combobox({
   fullWidth = true,
   sx,
 }: ComboboxProps) {
+  const [hasSelection, setHasSelection] = useState(false);
+
   return (
     <Autocomplete
       disablePortal
@@ -160,7 +179,9 @@ export default function Combobox({
       fullWidth={fullWidth}
       onChange={(_event, newValue) => {
         if (multiple) {
-          onChange?.((newValue as SelectOption[]).map((option) => option.value));
+          const selected = newValue as SelectOption[];
+          setHasSelection(selected.length > 0);
+          onChange?.(selected.map((option) => option.value));
         } else {
           onChange?.((newValue as SelectOption | null)?.value ?? '');
         }
@@ -184,6 +205,7 @@ export default function Combobox({
         },
         '& .MuiOutlinedInput-root .MuiAutocomplete-input': {
           padding: 0,
+          maxWidth: hasSelection ? `${INPUT_RESERVE_WIDTH}px` : '100%',
         },
         '& .MuiAutocomplete-inputRoot': {
           gap: `${TAG_GAP}px`,
@@ -221,7 +243,12 @@ export default function Combobox({
           </Box>
         );
       }}
-      renderInput={(params) => <TextField {...params} placeholder={placeholder} />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          placeholder={multiple && truncateTags && hasSelection ? undefined : placeholder}
+        />
+      )}
     />
   );
 }
