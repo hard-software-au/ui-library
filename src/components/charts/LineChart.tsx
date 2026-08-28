@@ -143,11 +143,11 @@ export default function LineChart(props: LineChartProps) {
           yAxis={
             props.yAxes && props.yAxes.length > 0
               ? props.yAxes.map((axis) => ({
-                  id: axis.id,
-                  label: axis.label,
-                  position: axis.position,
-                  width: Y_AXIS_WIDTH,
-                }))
+                id: axis.id,
+                label: axis.label,
+                position: axis.position,
+                width: Y_AXIS_WIDTH,
+              }))
               : [{ width: Y_AXIS_WIDTH }]
           }
           series={

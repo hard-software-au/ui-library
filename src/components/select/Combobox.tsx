@@ -6,8 +6,8 @@ import type { AutocompleteRenderValueGetItemProps } from '@mui/material/Autocomp
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import ListItemText from '@mui/material/ListItemText';
-
 import type { SxProps, Theme } from '@mui/material/styles';
+
 import { gray } from '../../theme/themePrimitives';
 
 export interface SelectOption {
@@ -29,9 +29,9 @@ const OVERFLOW_CHIP_WIDTH = 120;
 const TAG_GAP = 4;
 
 function TruncatedTags({
-                         options,
-                         getItemProps,
-                       }: {
+  options,
+  getItemProps,
+}: {
   options: SelectOption[];
   getItemProps: AutocompleteRenderValueGetItemProps<true>;
 }) {
@@ -132,14 +132,14 @@ function TruncatedTags({
 }
 
 export default function Combobox({
-                                      options,
-                                      multiple = false,
-                                      truncateTags = false,
-                                      placeholder,
-                                      onChange,
-                                      fullWidth = true,
-                                      sx,
-                                    }: ComboboxProps) {
+  options,
+  multiple = false,
+  truncateTags = false,
+  placeholder,
+  onChange,
+  fullWidth = true,
+  sx,
+}: ComboboxProps) {
   return (
     <Autocomplete
       disablePortal

@@ -28,10 +28,11 @@ module.exports = {
   },
   ignorePatterns: [".meteor/", "node_modules/", "storybook-static/", "output/"],
   rules: {
-    "react/react-in-jsx-scope": "off",
-    "react/prop-types": "off",
-    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "indent": ["error", 2, { "FunctionExpression": { "parameters": 1 } }],
     "object-curly-spacing": ["warn", "always"],
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "simple-import-sort/exports": "error",
     "simple-import-sort/imports": [
       "warn",
       {
@@ -42,6 +43,6 @@ module.exports = {
         ],
       },
     ],
-    "simple-import-sort/exports": "error",
+    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
   },
 };

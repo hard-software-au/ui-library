@@ -1,4 +1,4 @@
-import {useLayoutEffect, useRef, useState} from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { Autocomplete, TextField } from '@mui/material';
@@ -6,8 +6,8 @@ import type { AutocompleteRenderValueGetItemProps } from '@mui/material/Autocomp
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import ListItemText from '@mui/material/ListItemText';
-
 import type { SxProps, Theme } from '@mui/material/styles';
+
 import { gray } from '../../theme/themePrimitives';
 
 export interface SelectOption {
@@ -149,11 +149,11 @@ export default function BasicSelect({
       renderValue={
         multiple && truncateTags
           ? (value, getItemProps) => (
-              <TruncatedTags
-                options={value as SelectOption[]}
-                getItemProps={getItemProps as AutocompleteRenderValueGetItemProps<true>}
-              />
-            )
+            <TruncatedTags
+              options={value as SelectOption[]}
+              getItemProps={getItemProps as AutocompleteRenderValueGetItemProps<true>}
+            />
+          )
           : undefined
       }
       options={options}
