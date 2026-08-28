@@ -1,4 +1,4 @@
-import {useLayoutEffect, useRef, useState} from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import CheckRoundedIcon from '@mui/icons-material/CheckRounded';
 import { Autocomplete, TextField } from '@mui/material';
@@ -177,7 +177,7 @@ export default function Combobox({
         '& .MuiOutlinedInput-root': {
           width: '100%',
           height: 'auto',
-          minHeight: '2.5rem',
+          minHeight: '42px',
           paddingTop: '4px',
           paddingBottom: '4px',
           ...(multiple && truncateTags && { flexWrap: 'nowrap' }),
@@ -221,13 +221,7 @@ export default function Combobox({
           </Box>
         );
       }}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder={placeholder}
-          sx={{ minHeight: '42px' }}
-        />
-      )}
+      renderInput={(params) => <TextField {...params} placeholder={placeholder} />}
     />
   );
 }
