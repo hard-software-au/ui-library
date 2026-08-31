@@ -1,11 +1,58 @@
-# React + TypeScript + Vite
+# UI Library
+This repo contains common components to be used across HARD software products.
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Components:
+Current components 
+- Cards
+  - Highlighted
+  - Summary
+- Charts
+  - Bar
+  - Line
+  - Pie
+  - Donut
+  - Sparkline
+- Select
+  - Basic Select
+  - Combobox
 
-Currently, two official plugins are available:
+## How to install:
+1. Install and use the right `node` version
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Make sure you use the right version of node (see `.nvmrc`).
+It is recommended to use [nvm](https://www.nvmnode.com/) to manage your node versions.
+
+This should also install `npm` automatically
+
+Check your `node` and `npm` versions
+```aiignore
+node -v
+npm -v
+```
+
+2. Install packages
+
+```aiignore
+npm install
+```
+
+3. Run Storybook
+```aiignore
+npm run storybook
+```
+then go to http://localhost:6006/
+
+4. Or run the Dashboard Display
+```aiignore
+npm run dev
+```
+then go to http://localhost:5173/
+This should show `MainGrid.tsx`.
+
+## Storybook
+[Storybook](https://hard-software-au.github.io/ui-library/)
+Storybook will be updated upon merge via github action.
+note: there might be a couple of minutes delay from merge to updated.
 
 ## React Compiler
 
@@ -31,7 +78,3 @@ If you are developing a production application, we recommend enabling type-aware
 
 See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
 
-## Storybook
-[Storybook](https://hard-software-au.github.io/ui-library/)
-Storybook will be updated upon merge via github action.
-note: there might be a couple of minutes delay from merge to updated.
