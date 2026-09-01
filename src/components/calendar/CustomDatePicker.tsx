@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 
 import CalendarTodayRoundedIcon from '@mui/icons-material/CalendarTodayRounded';
 import Button from '@mui/material/Button';
@@ -13,21 +13,11 @@ import { DatePicker, type DatePickerFieldProps } from '@mui/x-date-pickers/DateP
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs, { Dayjs } from 'dayjs';
 
-interface ButtonFieldProps extends DatePickerFieldProps {}
-
-function ButtonField(props: ButtonFieldProps) {
+function ButtonField(props: DatePickerFieldProps) {
   const { forwardedProps: allForwardedProps } = useSplitFieldProps(props, 'date');
-  // `slotProps`/`inputRef` are passed through at runtime by the picker internals
-  // but aren't part of the public `DatePickerFieldProps` type, so they must be
-  // stripped explicitly before spreading onto `Button` (else they leak to the DOM).
   const {
-    slotProps: _slotProps,
-    inputRef: _inputRef,
     ...forwardedProps
-  } = allForwardedProps as typeof allForwardedProps & {
-    slotProps?: unknown;
-    inputRef?: unknown;
-  };
+  } = allForwardedProps as typeof allForwardedProps;
   const pickerContext = usePickerContext();
   const handleRef = useForkRef(pickerContext.triggerRef, pickerContext.rootRef);
   const parsedFormat = useParsedFormat();
@@ -51,15 +41,27 @@ function ButtonField(props: ButtonFieldProps) {
   );
 }
 
-export default function CustomDatePicker() {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2023-04-17'));
+export interface DatePickerProps {
+  date?: string;
+  onChange: (pickedDate: string) => void;
+}
+
+const DATE_FORMAT = "DD MMM YYYY"
+
+export default function CustomDatePicker(props: DatePickerProps) {
+  const [value, setValue] = useState<Dayjs | null>(props.date ? dayjs(props.date) : null);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker
         value={value}
-        label={value == null ? null : value.format('MMM DD, YYYY')}
-        onChange={(newValue) => setValue(newValue)}
+        openTo={'day'}
+        label={value == null ? null : value.format(DATE_FORMAT)}
+        closeOnSelect={true}
+        onChange={(newValue) => {
+          setValue(newValue)
+          if (newValue) props.onChange(newValue.format(DATE_FORMAT))
+        }}
         slots={{ field: ButtonField }}
         slotProps={{
           nextIconButton: { size: 'small' },
