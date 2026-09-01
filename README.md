@@ -1,5 +1,8 @@
 # UI Library
-This repo contains common components to be used across HARD software products.
+This repo contains common components to be used across HARD software products. 
+Components are build on top of [Material UI](https://mui.com/material-ui/).
+
+The styling a strip-down version of [Dashboard template](https://mui.com/material-ui/getting-started/templates/dashboard) from Material UI.
 
 ## Components:
 Current components 
