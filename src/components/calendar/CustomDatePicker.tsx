@@ -67,7 +67,6 @@ export default function CustomDatePicker(props: DatePickerProps) {
           nextIconButton: { size: 'small' },
           previousIconButton: { size: 'small' },
         }}
-        views={['day', 'month', 'year']}
       />
     </LocalizationProvider>
   );
