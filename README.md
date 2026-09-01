@@ -3,6 +3,8 @@ This repo contains common components to be used across HARD software products.
 
 ## Components:
 Current components 
+- Calendar
+  - Date Picker
 - Cards
   - Highlighted
   - Summary
