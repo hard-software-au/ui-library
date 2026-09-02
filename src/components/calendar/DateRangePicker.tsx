@@ -11,6 +11,9 @@ import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import type { PickerDayProps } from "@mui/x-date-pickers/PickerDay";
 import { PickerDay } from "@mui/x-date-pickers/PickerDay";
 import dayjs, { Dayjs } from "dayjs";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // Or AdapterDateFns, AdapterMoment, etc.
+
 
 export interface DateRange {
   start: Dayjs | null;
@@ -76,7 +79,7 @@ export function DateRangeFilterButton({ label, value, onChange }: DateRangeFilte
   };
 
   return (
-    <>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>      
       <Button
         size="small"
         variant="outlined"
@@ -121,6 +124,7 @@ export function DateRangeFilterButton({ label, value, onChange }: DateRangeFilte
           </Stack>
         </Box>
       </Popover>
-    </>
+
+    </LocalizationProvider>
   );
 }
