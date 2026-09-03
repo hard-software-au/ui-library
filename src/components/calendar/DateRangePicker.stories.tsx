@@ -6,7 +6,7 @@ import { type DateRange,DateRangeFilterButton } from './DateRangePicker';
 
 const meta = {
   title: 'Components/Calendar/DateRangePicker',
-  component: DateRangeFilterButton,
+  component: DateRangeFilterButton, 
   tags: ['autodocs'],
   parameters: {
     layout: 'padded',
@@ -25,7 +25,17 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: "",
-    value: { start: dayjs('2026-09-02'), end: dayjs('2026-09-09') },
+    value: { start: dayjs(), end: dayjs().add(7, 'day') },
+    onChange: (newValue: DateRange) => {
+      console.log(`newValue: ${newValue}`);
+    }
+  }
+};
+
+export const Shortcuts: Story = {
+  args: {
+    label: "",
+    value: { start: dayjs(), end: dayjs().add(7, 'day') },
     onChange: (newValue: DateRange) => {
       console.log(`newValue: ${newValue}`);
     }

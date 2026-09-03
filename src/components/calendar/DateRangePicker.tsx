@@ -9,11 +9,12 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // Or AdapterDateFns, AdapterMoment, etc.
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
+import { DatePicker, type DatePickerFieldProps } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import type { PickerDayProps } from "@mui/x-date-pickers/PickerDay";
 import { PickerDay } from "@mui/x-date-pickers/PickerDay";
+import { type PickersShortcutsItem } from '@mui/x-date-pickers/PickersShortcuts';
 import dayjs, { Dayjs } from "dayjs";
-
 
 export interface DateRange {
   start: Dayjs | null;
@@ -104,7 +105,7 @@ export function DateRangeFilterButton({ label, value, onChange }: DateRangeFilte
             value={value.end ?? value.start ?? null}
             onChange={handleDayClick}
             {...({
-              slots: { day: RangeDay },
+              slots: { day: RangeDay, },
               slotProps: {
                 day: {
                   rangeStart: value.start,
@@ -128,3 +129,4 @@ export function DateRangeFilterButton({ label, value, onChange }: DateRangeFilte
     </LocalizationProvider>
   );
 }
+
