@@ -17,6 +17,9 @@ Current components
   - Pie
   - Donut
   - Sparkline
+- Labels
+  - Region Label
+  - Traffic Dot
 - Select
   - Basic Select
   - Combobox
