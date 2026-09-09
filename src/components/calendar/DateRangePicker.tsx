@@ -58,15 +58,36 @@ function RangeDay({ day, rangeStart, rangeEnd, ...other }: RangeDayProps) {
 
 export function DateRangeFilterButton({ label, value, onChange }: DateRangeFilterButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [selectedRange, setSelectedRange] = useState<DateRange | null>(value);
 
   const buttonLabel =
-    value.start || value.end
-      ? `${value.start ? dayjs(value.start).format("DD/MM/YY") : "…"} - ${
-        value.end ? dayjs(value.end).format("DD/MM/YY") : "…"
+    selectedRange?.start || selectedRange?.end
+      ? `${selectedRange?.start ? dayjs(selectedRange.start).format("DD/MM/YYYY") : "…"} - ${
+        selectedRange?.end ? dayjs(selectedRange.end).format("DD/MM/YYYY") : "…"
       }`
       : label;
 
   const handleDayClick = (day: Dayjs | null) => {
+    if (!selectedRange?.start && !selectedRange?.end && day) {
+      setSelectedRange({ start: day, end: null });
+      onChange({ start: day, end: null });
+      return;
+    }
+    if (selectedRange?.start && day && day.isBefore(selectedRange.start, "day")) {
+      setSelectedRange({ start: day, end: selectedRange.start });
+      onChange({ start: day, end: selectedRange.start });
+      return;
+    }
+    if (selectedRange?.start && day && day.isAfter(selectedRange?.start, "day") && !day.isSame(selectedRange.end, "day")) {
+      setSelectedRange({ start: selectedRange.start, end: day });
+      onChange({ start: selectedRange.start, end: day });
+      return;
+    }
+    if (selectedRange?.start && day && day.isSame(selectedRange.start, "day") || selectedRange?.end && day && day.isSame(selectedRange.end, "day")) {
+      setSelectedRange({ start: day, end: null });
+      onChange({ start: day, end: null });
+      return;
+    }
     if (!day) return;
     if (!value.start || (value.start && value.end)) {
       onChange({ start: day, end: null });
@@ -74,6 +95,7 @@ export function DateRangeFilterButton({ label, value, onChange }: DateRangeFilte
     }
     if (day.isBefore(value.start, "day")) {
       onChange({ start: day, end: value.start });
+
     } else {
       onChange({ start: value.start, end: day });
     }
@@ -102,14 +124,14 @@ export function DateRangeFilterButton({ label, value, onChange }: DateRangeFilte
           {/* MUI's slot typing doesn't model extra custom props on `day`; RangeDay needs
               rangeStart/rangeEnd alongside the standard PickerDayProps, so these are cast loosely. */}
           <DateCalendar
-            value={value.end ?? value.start ?? null}
+            value={selectedRange?.end ?? selectedRange?.start ?? null}
             onChange={handleDayClick}
             {...({
               slots: { day: RangeDay, },
               slotProps: {
                 day: {
-                  rangeStart: value.start,
-                  rangeEnd: value.end,
+                  rangeStart: selectedRange?.start,
+                  rangeEnd: selectedRange?.end,
                 },
               },
             } as Record<string, unknown>)}
@@ -117,8 +139,11 @@ export function DateRangeFilterButton({ label, value, onChange }: DateRangeFilte
           <Stack direction="row" sx={{ justifyContent: "flex-end", px: 1, pb: 1 }}>
             <Button
               size="small"
-              onClick={() => onChange({ start: null, end: null })}
-              disabled={!value.start && !value.end}
+              onClick={() => {
+                setSelectedRange({ start: null, end: null });
+                onChange({ start: null, end: null });
+              }}
+              disabled={!selectedRange?.start && !selectedRange?.end}
             >
               Clear
             </Button>

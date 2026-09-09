@@ -13,6 +13,7 @@ const meta = {
   },
   args: {
     label: "Pick a date range",
+    value: { start: dayjs(), end: dayjs().add(7, 'day') },
     onChange: (newValue: DateRange) => {
       console.log(`newValue: ${newValue}`);
     }
@@ -25,19 +26,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: "",
-    value: { start: dayjs(), end: dayjs().add(7, 'day') },
-    onChange: (newValue: DateRange) => {
-      console.log(`newValue: ${newValue}`);
-    }
-  }
-};
-
-export const Shortcuts: Story = {
-  args: {
-    label: "",
-    value: { start: dayjs(), end: dayjs().add(7, 'day') },
-    onChange: (newValue: DateRange) => {
-      console.log(`newValue: ${newValue}`);
+    value: { start: dayjs().subtract(7, 'day'), end: dayjs() },
+    onChange: (newValue: { start: Dayjs | null, end: Dayjs | null }) => {
+      console.log(`newValue: ${newValue.start} - ${newValue.end}`);
     }
   }
 };
