@@ -32,3 +32,14 @@ export const Default: Story = {
     }
   }
 };
+
+export const Shortcuts: Story = {
+  args: {
+    label: "",
+    value: { start: dayjs().subtract(7, 'day'), end: dayjs() },
+    onChange: (newValue: { start: Dayjs | null, end: Dayjs | null }) => {
+      console.log(`newValue: ${newValue.start} - ${newValue.end}`);
+    },
+    isShortcutVisible: true
+  }
+};
