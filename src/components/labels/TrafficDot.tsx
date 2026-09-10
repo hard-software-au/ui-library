@@ -64,4 +64,4 @@ export default function TrafficDot(props: TrafficDotProps ) {
       }}
     />
   );
-};
+}

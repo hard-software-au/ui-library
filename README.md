@@ -23,6 +23,7 @@ Current components
 - Select
   - Basic Select
   - Combobox
+- Tabs
 
 ## How to install:
 1. Install and use the right `node` version
