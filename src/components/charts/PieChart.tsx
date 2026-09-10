@@ -12,7 +12,7 @@ export interface PieChartProps extends PieChartCenterProps {
   }[];
 }
 
-interface PieChartCenterProps {
+export interface PieChartCenterProps {
   primaryText?: string;
   secondaryText?: string;
 }

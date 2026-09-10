@@ -10,7 +10,7 @@ import { navigationCustomizations } from './customizations/navigation';
 import { surfacesCustomizations } from './customizations/surfaces';
 import { colorSchemes, shadows, shape,typography } from './themePrimitives';
 
-interface AppThemeProps {
+export interface AppThemeProps {
   children: React.ReactNode;
   /**
    * This is for the docs site. You can ignore it or remove it.
