@@ -17,10 +17,13 @@ Current components
   - Pie
   - Donut
   - Sparkline
+- Labels
+  - Region Label
+  - Traffic Dot
 - Select
   - Basic Select
   - Combobox
-- Tab
+- Tabs
 
 ## How to install:
 1. Install and use the right `node` version
