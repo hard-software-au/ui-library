@@ -23,6 +23,7 @@ export interface DateRangeFilterButtonProps {
   label: string;
   value: DateRange;
   isShortcutVisible?: boolean;
+  shortcutsItems?: PickerShortcutsItem<DateRange>[];
   onChange: (range: DateRange) => void;
 }
 
@@ -35,46 +36,6 @@ interface RangeDayProps extends PickerDayProps {
   rangeStart: Dayjs | null;
   rangeEnd: Dayjs | null;
 }
-const shortcutsItems: PickerShortcutsItem<DateRange>[] = [
-  {
-    label: 'This Week',
-    getValue: () => {
-      const today = dayjs();
-      return { start: today.startOf('week'), end: today.endOf('week') };
-    },
-  },
-  {
-    label: 'Last Week',
-    getValue: () => {
-      const today = dayjs();
-      const prevWeek = today.subtract(7, 'day');
-      return { start: prevWeek.startOf('week'), end: prevWeek.endOf('week') };
-    },
-  },
-  {
-    label: 'Last 7 Days',
-    getValue: () => {
-      const today = dayjs();
-      return { start: today.subtract(7, 'day'), end: today };
-    },
-  },
-  {
-    label: 'Current Month',
-    getValue: () => {
-      const today = dayjs();
-      return { start: today.startOf('month'), end: today.endOf('month') };
-    },
-  },
-  {
-    label: 'Next Month',
-    getValue: () => {
-      const today = dayjs();
-      const startOfNextMonth = today.endOf('month').add(1, 'day');
-      return { start: startOfNextMonth, end: startOfNextMonth.endOf('month') };
-    },
-  },
-  { label: 'Reset', getValue: () => ({ start: dayjs(), end: dayjs().add(7, 'day') }) },
-];
 
 
 function RangeDay({ day, rangeStart, rangeEnd, ...other }: RangeDayProps) {
@@ -101,7 +62,7 @@ function RangeDay({ day, rangeStart, rangeEnd, ...other }: RangeDayProps) {
   );
 }
 
-export function DateRangeFilterButton({ label, value, onChange, isShortcutVisible }: DateRangeFilterButtonProps) {
+export function DateRangeFilterButton({ label, value, onChange, isShortcutVisible, shortcutsItems }: DateRangeFilterButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedRange, setSelectedRange] = useState<DateRange | null>(value);
 
@@ -122,7 +83,7 @@ export function DateRangeFilterButton({ label, value, onChange, isShortcutVisibl
     }
     // If clicked day is before the start date, update clicked day as the new start date
     if (selectedRange?.start && day.isBefore(selectedRange.start, "day")) {
-      setSelectedRange({ start: day, end: selectedRange.start });
+      setSelectedRange({ start: day, end: selectedRange.end });
       return;
     }
     // If clicked day is after the start date and before the end date, update clicked day as the new end date
@@ -154,8 +115,8 @@ export function DateRangeFilterButton({ label, value, onChange, isShortcutVisibl
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ width: '100%' }}>
-          {isShortcutVisible && 
-            <Box sx={{ p: 1 }}>
+          {isShortcutVisible && shortcutsItems && shortcutsItems.length > 0 &&
+            <Box sx={{ p: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '20%' }}>
               <Stack direction="column" spacing={1} sx={{ mb: 1 }}>
                 {shortcutsItems.map((item) => (
                   <Button
@@ -175,11 +136,7 @@ export function DateRangeFilterButton({ label, value, onChange, isShortcutVisibl
               </Stack>
             </Box>
           }
-
           <Box sx={{ p: 1 }}>
-            <Typography variant="caption" color="text.secondary" sx={{ pl: 1 }}>
-              Pick start date, then end date
-            </Typography>
             {/* MUI's slot typing doesn't model extra custom props on `day`; RangeDay needs
                 rangeStart/rangeEnd alongside the standard PickerDayProps, so these are cast loosely. */}
             <DateCalendar

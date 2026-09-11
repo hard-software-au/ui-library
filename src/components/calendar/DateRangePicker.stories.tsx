@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import dayjs, { Dayjs } from "dayjs";
-
 import { type DateRange,DateRangeFilterButton } from './DateRangePicker';
 
 
@@ -40,6 +39,38 @@ export const Shortcuts: Story = {
     onChange: (newValue: { start: Dayjs | null, end: Dayjs | null }) => {
       console.log(`newValue: ${newValue.start} - ${newValue.end}`);
     },
-    isShortcutVisible: true
+    isShortcutVisible: true,
+    shortcutsItems: [
+      {
+        label: 'This Week',
+        getValue: () => {
+          const today = dayjs();
+          return { start: today.startOf('week'), end: today.endOf('week') };
+        },
+      },
+      {
+        label: 'Last Week',
+        getValue: () => {
+          const today = dayjs();
+          const prevWeek = today.subtract(7, 'day');
+          return { start: prevWeek.startOf('week'), end: prevWeek.endOf('week') };
+        },
+      },
+      {
+        label: 'Last 7 Days',
+        getValue: () => {
+          const today = dayjs();
+          return { start: today.subtract(7, 'day'), end: today };
+        },
+      },
+      {
+        label: 'Current Month',
+        getValue: () => {
+          const today = dayjs();
+          return { start: today.startOf('month'), end: today.endOf('month') };
+        },
+      },
+      { label: 'Reset', getValue: () => ({ start: dayjs().subtract(7, 'day'), end: dayjs() }) },
+    ]
   }
 };
