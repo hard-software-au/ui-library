@@ -18,25 +18,24 @@ export interface DateRange {
   start: Dayjs | null;
   end: Dayjs | null;
 }
-
 export interface DateRangeFilterButtonProps {
   label: string;
   value: DateRange;
-  isShortcutVisible?: boolean;
-  shortcutsItems?: PickerShortcutsItem<DateRange>[];
+  shortcutsItems?: string[];
   onChange: (range: DateRange) => void;
 }
-
-export interface PickerShortcutsItem<DateRange> {
-  label: string;
-  getValue: () => DateRange;
-}
-
 interface RangeDayProps extends PickerDayProps {
   rangeStart: Dayjs | null;
   rangeEnd: Dayjs | null;
 }
 
+export const SHORTCUT_LABELS: Record<string, string> = {
+  this_week: "This Week",
+  last_week: "Last Week",
+  last_7_days: "Last 7 Days",
+  current_month: "Current Month",
+  reset: "Clear Filter",
+};
 
 function RangeDay({ day, rangeStart, rangeEnd, ...other }: RangeDayProps) {
   const isStart = !!rangeStart && day.isSame(rangeStart, "day");
@@ -62,9 +61,10 @@ function RangeDay({ day, rangeStart, rangeEnd, ...other }: RangeDayProps) {
   );
 }
 
-export function DateRangeFilterButton({ label, value, onChange, isShortcutVisible, shortcutsItems }: DateRangeFilterButtonProps) {
+export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }: DateRangeFilterButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedRange, setSelectedRange] = useState<DateRange | null>(value);
+  const { start, end } = selectedRange || { start: null, end: null };
 
   const buttonLabel =
     selectedRange?.start || selectedRange?.end
@@ -76,25 +76,43 @@ export function DateRangeFilterButton({ label, value, onChange, isShortcutVisibl
   const handleDayClick = (day: Dayjs | null) => {
     if (!day) return;
 
-    // If selection is empty, start a new range with the clicked day as the start date
-    if (!selectedRange?.start && !selectedRange?.end) {
+    // Start a new range with the clicked day as the start date if selection is empty
+    // Or reset the selection to the clicked day if it is the same as current start or end
+    if (!start && !end || 
+      (start && day.isSame(start, "day") || end && day.isSame(end, "day"))) {
       setSelectedRange({ start: day, end: null });
       return;
     }
-    // If clicked day is before the start date, update clicked day as the new start date
-    if (selectedRange?.start && day.isBefore(selectedRange.start, "day")) {
-      setSelectedRange({ start: day, end: selectedRange.end });
+    // Set clicked day as the new start date, if it is before the current start
+    if (start && day.isBefore(start, "day")) {
+      setSelectedRange({ start: day, end: end });
       return;
     }
-    // If clicked day is after the start date and before the end date, update clicked day as the new end date
-    if (selectedRange?.start && day.isAfter(selectedRange?.start, "day") && !day.isSame(selectedRange.end, "day")) {
-      setSelectedRange({ start: selectedRange.start, end: day });
+    // Set clicked day as the new end date, if day is after start date
+    if (start && day.isAfter(start, "day") && !day.isSame(end, "day")) {
+      setSelectedRange({ start: start, end: day });
       return;
     }
-    // If clicked day is the same as the start or end date, reset the selection to just that day
-    if (selectedRange?.start && day.isSame(selectedRange.start, "day") || selectedRange?.end && day && day.isSame(selectedRange.end, "day")) {
-      setSelectedRange({ start: day, end: null });
-      return;
+  };
+
+  const handleShortcut = (selection: string): DateRange => {
+    const today = dayjs();
+    const prevWeek = today.subtract(7, 'day');
+    switch (selection) {
+    case "this_week":
+      // Calculate start and end of current week
+      return { start: today.startOf('week'), end: today.endOf('week') };
+    case "last_week":
+      return { start: prevWeek.startOf('week'), end: prevWeek.endOf('week') };
+    case "last_7_days":
+      // Subtract 7 days from now
+      return { start: today.subtract(7, 'day'), end: today };
+    case "current_month":
+      return { start: today.startOf('month'), end: today };
+    case "reset":
+      return { start: dayjs().subtract(7, 'day'), end: dayjs() };
+    default:
+      return { start: null, end: null };
     }
   };
 
@@ -115,22 +133,21 @@ export function DateRangeFilterButton({ label, value, onChange, isShortcutVisibl
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
       >
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ width: '100%' }}>
-          {isShortcutVisible && shortcutsItems && shortcutsItems.length > 0 &&
+          {shortcutsItems && shortcutsItems.length > 0 &&
             <Box sx={{ p: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '20%' }}>
               <Stack direction="column" spacing={1} sx={{ mb: 1 }}>
                 {shortcutsItems.map((item) => (
                   <Button
-                    key={item.label}
+                    key={item}
                     size="small"
                     variant="outlined"
                     onClick={() => {
-                      const newRange = item.getValue();
+                      const newRange = handleShortcut(item);
                       setSelectedRange(newRange);
                       onChange(newRange);
-                      setAnchorEl(null);
                     }}
                   >
-                    {item.label}
+                    {SHORTCUT_LABELS[item]}
                   </Button>
                 ))}
               </Stack>
