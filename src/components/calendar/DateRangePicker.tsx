@@ -100,17 +100,15 @@ export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }
     const prevWeek = today.subtract(7, 'day');
     switch (selection) {
     case "this_week":
-      // Calculate start and end of current week
       return { start: today.startOf('week'), end: today.endOf('week') };
     case "last_week":
       return { start: prevWeek.startOf('week'), end: prevWeek.endOf('week') };
     case "last_7_days":
-      // Subtract 7 days from now
       return { start: today.subtract(7, 'day'), end: today };
     case "current_month":
       return { start: today.startOf('month'), end: today };
     case "reset":
-      return { start: dayjs().subtract(7, 'day'), end: dayjs() };
+      return { start: null, end: null };
     default:
       return { start: null, end: null };
     }
@@ -134,8 +132,8 @@ export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }
       >
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ width: '100%' }}>
           {shortcutsItems && shortcutsItems.length > 0 &&
-            <Box sx={{ p: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '20%' }}>
-              <Stack direction="column" spacing={1} sx={{ mb: 1 }}>
+            <Box sx={{ p: 3 }}>
+              <Stack direction="column" spacing={1} sx={{ mb: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 {shortcutsItems.map((item) => (
                   <Button
                     key={item}
@@ -153,7 +151,7 @@ export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }
               </Stack>
             </Box>
           }
-          <Box sx={{ p: 1 }}>
+          <Box>
             {/* MUI's slot typing doesn't model extra custom props on `day`; RangeDay needs
                 rangeStart/rangeEnd alongside the standard PickerDayProps, so these are cast loosely. */}
             <DateCalendar
