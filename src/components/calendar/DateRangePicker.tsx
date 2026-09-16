@@ -34,7 +34,7 @@ export const SHORTCUT_LABELS: Record<string, string> = {
   last_week: "Last Week",
   last_7_days: "Last 7 Days",
   current_month: "Current Month",
-  reset: "Clear Filter",
+  reset: "Reset",
 };
 
 function RangeDay({ day, rangeStart, rangeEnd, ...other }: RangeDayProps) {
@@ -64,6 +64,7 @@ function RangeDay({ day, rangeStart, rangeEnd, ...other }: RangeDayProps) {
 export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }: DateRangeFilterButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedRange, setSelectedRange] = useState<DateRange | null>(value);
+  const [originalRange, setOriginalRange] = useState<DateRange | null>(value);
   const { start, end } = selectedRange || { start: null, end: null };
 
   const buttonLabel =
@@ -78,7 +79,7 @@ export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }
 
     // Start a new range with the clicked day as the start date if selection is empty
     // Or reset the selection to the clicked day if it is the same as current start or end
-    if (!start && !end || 
+    if (!start && !end ||
       (start && day.isSame(start, "day") || end && day.isSame(end, "day"))) {
       setSelectedRange({ start: day, end: null });
       return;
@@ -106,16 +107,16 @@ export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }
     case "last_7_days":
       return { start: today.subtract(7, 'day'), end: today };
     case "current_month":
-      return { start: today.startOf('month'), end: today };
+      return { start: today.startOf('month'), end: today.endOf('month') };
     case "reset":
-      return { start: null, end: null };
+      return { start: originalRange.start, end: originalRange.end };
     default:
       return { start: null, end: null };
     }
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>      
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Button
         size="small"
         variant="outlined"
