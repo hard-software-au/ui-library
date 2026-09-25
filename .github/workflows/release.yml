@@ -14,7 +14,6 @@ concurrency:
 
 jobs:
   release:
-    if: ${{ !startsWith(github.event.head_commit.message, 'chore(release):') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,7 +21,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Check whether package.json version is unreleased
+        id: version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          if git rev-parse -q --verify "refs/tags/v$version" >/dev/null; then
+            echo "New version: false (v$version already tagged)"
+            echo "unreleased=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "unreleased=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Set up Node.js
+        if: steps.version.outputs.unreleased == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -30,40 +42,21 @@ jobs:
 
       # Also runs `prepare` (build:lib), mirroring what a consumer's git install does.
       - name: Install dependencies
+        if: steps.version.outputs.unreleased == 'true'
         run: npm ci
 
       - name: Type-check
+        if: steps.version.outputs.unreleased == 'true'
         run: npx tsc -b
 
       - name: Verify dist output
+        if: steps.version.outputs.unreleased == 'true'
         run: |
           test -f dist/Tabs.js && test -f dist/Tabs.d.ts
           test "$(ls dist/*.d.ts | wc -l)" -eq "$(ls src/lib/*.ts | wc -l)"
 
-      - name: Determine version bump
-        id: bump
-        env:
-          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-        run: |
-          subject=$(printf '%s' "$COMMIT_MESSAGE" | head -n1)
-          if printf '%s' "$COMMIT_MESSAGE" | grep -q 'BREAKING CHANGE' || printf '%s' "$subject" | grep -Eq '^[a-z]+(\([^)]*\))?!:'; then
-            echo "type=major" >> "$GITHUB_OUTPUT"
-          elif printf '%s' "$subject" | grep -Eq '^feat(\([^)]*\))?:'; then
-            echo "type=minor" >> "$GITHUB_OUTPUT"
-          else
-            echo "type=patch" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Bump version and tag
-        id: version
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          npm version "${{ steps.bump.outputs.type }}" -m "chore(release): %s"
-          echo "tag=v$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
-          git push --follow-tags
-
-      - name: Create GitHub Release
+      - name: Create tag and GitHub Release
+        if: steps.version.outputs.unreleased == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${{ steps.version.outputs.tag }}" --generate-notes
+        run: gh release create "${{ steps.version.outputs.tag }}" --target "$GITHUB_SHA" --generate-notes
