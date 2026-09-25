@@ -1,12 +1,11 @@
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Popover from "@mui/material/Popover";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'; // Or AdapterDateFns, AdapterMoment, etc.
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -64,7 +63,7 @@ function RangeDay({ day, rangeStart, rangeEnd, ...other }: RangeDayProps) {
 export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }: DateRangeFilterButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedRange, setSelectedRange] = useState<DateRange | null>(value);
-  const [originalRange, setOriginalRange] = useState<DateRange | null>(value);
+  const [originalRange] = useState<DateRange | null>(value);
   const { start, end } = selectedRange || { start: null, end: null };
 
   const buttonLabel =
@@ -109,7 +108,7 @@ export function DateRangeFilterButton({ label, value, onChange, shortcutsItems }
     case "current_month":
       return { start: today.startOf('month'), end: today.endOf('month') };
     case "reset":
-      return { start: originalRange.start, end: originalRange.end };
+      return { start: originalRange?.start ? originalRange?.start : null , end: originalRange?.end ? originalRange?.end : null };
     default:
       return { start: null, end: null };
     }
