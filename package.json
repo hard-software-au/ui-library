@@ -1,11 +1,24 @@
 {
-  "name": "hs-component-libraries",
+  "name": "@hard-software-au/ui-library",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:lib": "vite build --config vite.lib.config.ts",
+    "prepare": "npm run build:lib",
     "lint": "yarn lint:check",
     "lint:check": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",
@@ -13,7 +26,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.2.0",
@@ -23,10 +36,12 @@
     "@mui/x-date-pickers": "^9.10.1",
     "@mui/x-date-pickers-pro": "^9.12.0",
     "@mui/x-tree-view": "^9.10.1",
-    "@react-spring/web": "^10.1.2",
     "dayjs": "^1.11.21",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
+  },
+  "dependencies": {
+    "@react-spring/web": "^10.1.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.2.1",
@@ -35,6 +50,15 @@
     "@storybook/addon-mcp": "^10.6.0",
     "@storybook/addon-vitest": "^10.5.6",
     "@storybook/react-vite": "^10.5.6",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@microsoft/api-extractor": "^7.59.1",
+    "@mui/icons-material": "^9.2.0",
+    "@mui/material": "^9.2.0",
+    "@mui/x-charts": "^9.10.1",
+    "@mui/x-data-grid": "^9.10.1",
+    "@mui/x-date-pickers": "^9.10.1",
+    "@mui/x-tree-view": "^9.10.1",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
@@ -48,9 +72,12 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "playwright": "^1.62.1",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "storybook": "^10.5.6",
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
+    "vite-plugin-dts": "^5.1.0",
     "vitest": "^4.1.11"
   }
 }

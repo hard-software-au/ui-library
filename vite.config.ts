@@ -11,6 +11,12 @@ const dirname = import.meta.dirname;
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 export default defineConfig({
   plugins: [react()],
+  // The published library build (vite.lib.config.ts) owns ./dist, since that's
+  // what package.json "exports"/"files" point consumers at. Keep this demo-app
+  // build separate so the two don't clobber each other.
+  build: {
+    outDir: 'dist-demo'
+  },
   test: {
     projects: [{
       extends: true,
