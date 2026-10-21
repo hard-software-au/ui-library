@@ -33,13 +33,17 @@ export default function AccountMenu({ userName }: {userName: string}) {
       <MenuButton
         aria-label="Open menu"
         onClick={handleClick}
-        sx={{ borderColor: 'transparent' }}
+        sx={{
+          backgroundColor: 'transparent',
+          border: 'none',
+          borderRadius: '50%',
+        }}
       >
         <Avatar
           sizes="small"
           alt={userName}
           src="/static/images/avatar/7.jpg"
-          sx={{ width: 45, height: 45 }}
+          sx={{ width: 38, height: 38 }}
         />
       </MenuButton>
       <Menu

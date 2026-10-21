@@ -14,7 +14,7 @@ const StyledListItemButton = styled(Button, {
   borderRadius: '0 !important',
   backgroundColor: isSelected ? "#195aa6 !important" : "#062b57 !important",
 
-  padding: '5px 20px',
+  padding: '5px 10px',
   display: 'flex',
   alignItems: 'center',
   alignContent: 'center',
@@ -42,7 +42,7 @@ export default function MenuItemButton({ icon, text, isExpanded = false, isSelec
   return (
     <StyledListItemButton isSelected={isSelected}>
       <ListItemIcon style={{ color: "white" }}>{icon}</ListItemIcon>
-      {isExpanded && <ListItemText primary={text} sx={{ maxWidth: '100px', textAlign: 'left' }}/>}
+      {isExpanded && <ListItemText primary={text} sx={{ maxWidth: '65px', textAlign: 'left' }}/>}
     </StyledListItemButton>
   )
 }

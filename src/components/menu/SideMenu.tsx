@@ -12,8 +12,8 @@ import HSLogo from "./../../assets/hs_logo.png";
 import AccountMenu from "./AccountMenu.tsx";
 import MenuItems, { type MenuItemProps } from "./MenuItems.tsx";
 
-const drawerWidthExpanded = 150;
-const drawerWidthMinimised = 100;
+const drawerWidthExpanded = 110;
+const drawerWidthMinimised = 80;
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "isSelected",
