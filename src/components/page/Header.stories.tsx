@@ -1,12 +1,13 @@
+import { Fragment } from "react";
+
+import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import Header from './Header';
-import {Fragment} from "react";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
+import { ColorModeIconDropdown } from "../../lib/ColorModeIconDropdown.ts";
 import MenuButton from "../MenuButton.tsx";
-import NotificationsRoundedIcon from "@mui/icons-material/NotificationsRounded";
-import {ColorModeIconDropdown} from "../../lib/ColorModeIconDropdown.ts";
+import Header from './Header';
 
 const meta = {
   title: 'Components/Page/Header',
@@ -61,6 +62,26 @@ const headerContent =
 export const Default: Story = {
   args: {
     headerContent: headerContent
+  }
+};
+
+const simpleHeaderContent =
+  <Typography
+    variant="h4"
+    sx={{
+      color: "black",
+      fontWeight: '600',
+      ml: 1,
+      whiteSpace: 'nowrap',
+      lineHeight: 1,
+    }}
+  >
+    Sites Overview
+  </Typography>
+
+export const SimpleHeader: Story = {
+  args: {
+    headerContent: simpleHeaderContent
   }
 };
 

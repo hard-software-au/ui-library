@@ -1,8 +1,8 @@
 import type { JSX } from "react";
 
+import { Paper } from "@mui/material";
 import Stack from "@mui/material/Stack";
-import {styled} from "@mui/material/styles";
-import {Paper} from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 const StyledStack = styled(Stack)(() => ({
   justifyContent: 'space-between',
