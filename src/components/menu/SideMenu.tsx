@@ -1,27 +1,19 @@
 import type { JSX } from "react";
 
-import AnalyticsRoundedIcon from "@mui/icons-material/AnalyticsRounded";
-import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
-import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
 import Box from "@mui/material/Box";
 import Divider from '@mui/material/Divider';
 import MuiDrawer, { drawerClasses } from '@mui/material/Drawer';
-import { styled } from '@mui/material/styles';
+import Stack from "@mui/material/Stack";
+import { styled, useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 import HSIcon from "./../../assets/hs_icon.png";
 import HSLogo from "./../../assets/hs_logo.png";
-import MenuItems from "./MenuItems.tsx";
+import AccountMenu from "./AccountMenu.tsx";
+import MenuItems, { type MenuItemProps } from "./MenuItems.tsx";
 
 const drawerWidthExpanded = 150;
 const drawerWidthMinimised = 100;
-
-const mainListItems = [
-  { text: 'Home', icon: <HomeRoundedIcon /> },
-  { text: 'Analytics', icon: <AnalyticsRoundedIcon />, isSelected: true },
-  { text: 'Clients', icon: <PeopleRoundedIcon /> },
-  { text: 'Tasks', icon: <AssignmentRoundedIcon /> },
-];
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== "isSelected",
@@ -37,13 +29,25 @@ const Drawer = styled(MuiDrawer, {
   },
 }));
 
-export default function SideMenu({ isExpanded }: {isExpanded: boolean}): JSX.Element {
+const HSLogoHeader = <img src={HSLogo} alt={'HS Logo'} width={drawerWidthExpanded - 40}/>;
+const HSIconHeader = <img src={HSIcon} alt={'HS Icon'} width={50}/>;
+
+interface SideMenuProps {
+  items: MenuItemProps[];
+  isExpanded: boolean;
+  userName: string;
+}
+
+export default function SideMenu({ items, isExpanded, userName }: SideMenuProps): JSX.Element {
+  const theme = useTheme();
+  const isBigScreen = useMediaQuery(theme.breakpoints.up('sm'));
+  const showExpandedHeader = isBigScreen && isExpanded;
+
   return (
     <Drawer
       variant={'permanent'}
-      isExpanded={isExpanded}
+      isExpanded={showExpandedHeader && isExpanded}
       sx={{
-        display: { xs: 'none', md: 'block' },
         [`& .${drawerClasses.paper}`]: {
           backgroundColor: "#062b57"
         },
@@ -51,6 +55,7 @@ export default function SideMenu({ isExpanded }: {isExpanded: boolean}): JSX.Ele
     >
       <Box
         sx={{
+          height: '66px',
           display: 'flex',
           justifyContent: 'center',
           mt: 'calc(var(--template-frame-height, 0px) + 4px)',
@@ -59,14 +64,26 @@ export default function SideMenu({ isExpanded }: {isExpanded: boolean}): JSX.Ele
         }}
       >
         {
-          isExpanded ?
-            <img src={HSLogo} alt={'HS Logo'} width={drawerWidthExpanded}/> :
-            <img src={HSIcon} alt={'HS Icon'} width={50}/>
+          showExpandedHeader ? HSLogoHeader : HSIconHeader
         }
       </Box>
       <Divider />
 
-      <MenuItems items={mainListItems} isExpanded={isExpanded} isMobile={false} />
+      <MenuItems items={items} isExpanded={showExpandedHeader && isExpanded} isMobile={false} />
+
+      <Stack
+        direction="row"
+        sx={{
+          p: 2,
+          gap: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderTop: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
+        <AccountMenu userName={userName}/>
+      </Stack>
     </Drawer>
   );
 }

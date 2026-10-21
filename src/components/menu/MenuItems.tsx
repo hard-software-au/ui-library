@@ -11,7 +11,7 @@ export interface MenuItemProps {
   isSelected?: boolean;
 }
 
-interface MenuItemsProps {
+export interface MenuItemsProps {
   items: MenuItemProps[];
   isExpanded: boolean;
   isMobile: boolean;
