@@ -26,7 +26,7 @@ export const Warning: Story = {
   args: {
     status: "warning",
     pulseOnCritical: false,
-  size: "small"
+    size: "small"
   }
 };
 
