@@ -2,6 +2,7 @@ import { Box, keyframes } from '@mui/material';
 
 export interface TrafficDotProps {
   status: "ok" | "warning" | "error";
+  pulseOnCritical: boolean;
 }
 
 const statusColors = {
@@ -33,6 +34,7 @@ const pulseAnimation = keyframes`
 
 export default function TrafficDot(props: TrafficDotProps ) {
   const isCritical = props.status === "warning" || props.status === "error";
+  const isPulsing  = isCritical && props.pulseOnCritical;
 
   return (
     <Box
@@ -42,6 +44,7 @@ export default function TrafficDot(props: TrafficDotProps ) {
         height: 14,
         borderRadius: '50%',
         backgroundColor: statusColors[props.status] || 'grey.400',
+        border: '0.3px solid grey',
         display: 'inline-block',
         // Static prominent glow for warning/error
         boxShadow: isCritical
@@ -57,7 +60,7 @@ export default function TrafficDot(props: TrafficDotProps ) {
           width: '100%',
           height: '100%',
           borderRadius: '50%',
-          animation: `${pulseAnimation} 2s infinite ease-in-out`,
+          animation: isPulsing ? `${pulseAnimation} 2s infinite ease-in-out` : '',
           // Adjust the keyframe box-shadow color contextually
           boxShadow: `0 0 0 0 ${glowColors[props.status]}`,
         } : {},
