@@ -2,9 +2,10 @@ import Chip from "@mui/material/Chip";
 
 const RegionColor: Record<string, string> = {
   "QLD1": "#800000",
-  "NSW1": "#87ceeb",
+  "NSW1": "#247FCE",
   "VIC1": "#191970",
-  "SA1": "#ff0000",
+  "SA1": "#FD3A5C",
+  "TAS1": "#647E39"
 }
 
 export interface RegionProps {
