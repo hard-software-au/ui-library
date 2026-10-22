@@ -1,11 +1,12 @@
-import Card from '@mui/material/Card';
+import type { ReactNode } from "react";
+
 import CardContent from '@mui/material/CardContent';
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from '@mui/material/Typography';
-import type { ReactNode } from "react";
 
 import type { CardProps } from "./CardProps.ts";
+import { Tile } from "./Tile.tsx";
 
 export interface HighlightedCardProps extends CardProps {
   prefix?: ReactNode;
@@ -13,7 +14,7 @@ export interface HighlightedCardProps extends CardProps {
 
 export default function HighlightedCard(props: HighlightedCardProps) {
   return (
-    <Card sx={{ height: '100%', flexGrow: 1 }}>
+    <Tile sx={{ padding: '1rem', height: '100%', flexGrow: 1, backgroundColor: "#f5f6fa" }}>
       <CardContent>
         {props.prefix && (props.prefix)}
         <Typography
@@ -54,6 +55,6 @@ export default function HighlightedCard(props: HighlightedCardProps) {
         {/*  </Button>*/}
         {/*</Grid>*/}
       </CardContent>
-    </Card>
+    </Tile>
   );
 }
