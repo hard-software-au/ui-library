@@ -2,20 +2,22 @@ import { Box, keyframes } from '@mui/material';
 
 export interface TrafficDotProps {
   size: 'small' | 'medium' | 'large';
-  status: 'ok' | 'warning' | 'error';
-  pulseOnCritical: boolean;
+  status: 'ok' | 'warning' | 'error' | 'inactive';
+  pulseOnCritical?: boolean;
 }
 
 const statusColors = {
   'ok': 'success.main',
   'warning': 'warning.light',
   'error': 'error.main',
+  'inactive': 'rgb(90 90 90)',
 };
 
 const glowColors = {
   'ok': 'success.main',
   'warning': 'rgba(237, 108, 2, 0.5)',
   'error': 'rgba(211, 47, 47, 0.5)',
+  'inactive': 'rgba(0, 0, 0, 0.2)',
 };
 
 const dotSize = {
