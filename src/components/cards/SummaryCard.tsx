@@ -7,6 +7,8 @@ import Typography from '@mui/material/Typography';
 import type { CardProps } from "./CardProps.ts";
 import { Tile } from "./Tile.tsx";
 
+export type { CardProps } from "./CardProps.ts";
+
 export default function SummaryCard(props: CardProps) {
   return (
     <Tile sx={{ padding: '1rem', height: '100%', flexGrow: 1 }}>
