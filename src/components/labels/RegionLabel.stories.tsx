@@ -37,3 +37,9 @@ export const SA1: Story = {
     region: "SA1",
   }
 };
+
+export const TAS1: Story = {
+  args: {
+    region: "TAS1",
+  }
+};

@@ -1,4 +1,3 @@
-import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Chip from '@mui/material/Chip';
 import Grid from "@mui/material/Grid";
@@ -6,10 +5,11 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 import type { CardProps } from "./CardProps.ts";
+import { Tile } from "./Tile.tsx";
 
 export default function SummaryCard(props: CardProps) {
   return (
-    <Card variant="outlined" sx={{ height: '100%', flexGrow: 1 }}>
+    <Tile sx={{ padding: '1rem', height: '100%', flexGrow: 1 }}>
       <CardContent>
         <Grid container spacing={1} size={1}>
           <Stack sx={{ justifyContent: 'space-between' }}>
@@ -40,7 +40,7 @@ export default function SummaryCard(props: CardProps) {
           </Stack>
         </Grid>
       </CardContent>
-    </Card>
+    </Tile>
   );
 }
 
