@@ -37,9 +37,12 @@ module.exports = {
       "warn",
       {
         groups: [
-          ["^react$", "^react-dom$", "^react/"], // Forces React core packages first
-          ["^@?\\w"], // Third-party packages next
-          ["^\\."], // Internal/relative imports last
+          // Forces React core packages first
+          ["^react$", "^react\\u0000", "^react-dom$", "^react-dom\\u0000", "^react/", "^react/.*\\u0000"],
+          // Third-party packages next
+          ["^@?\\w"],
+          // Internal/relative imports last
+          ["^\\."],
         ],
       },
     ],
