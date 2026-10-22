@@ -17,7 +17,13 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     status: "ok",
-    pulseOnCritical: false,
+    size: "small"
+  }
+};
+
+export const Inactive: Story = {
+  args: {
+    status: "inactive",
     size: "small"
   }
 };
@@ -25,7 +31,6 @@ export const Default: Story = {
 export const Warning: Story = {
   args: {
     status: "warning",
-    pulseOnCritical: false,
     size: "small"
   }
 };
@@ -41,7 +46,6 @@ export const WarningPulse: Story = {
 export const Error: Story = {
   args: {
     status: "error",
-    pulseOnCritical: false,
     size: "small"
   }
 };

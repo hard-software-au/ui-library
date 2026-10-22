@@ -1,5 +1,6 @@
 import type { JSX } from "react";
 
+import type { SxProps, Theme } from "@mui/material";
 import { Paper } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
@@ -17,7 +18,6 @@ const StyledPaper = styled(Paper)(() => ({
   width: '100%',
   height: '64px',
   padding: '0.5rem',
-  marginLeft: '1rem',
   alignContent: 'center',
 
   backgroundColor: "white",
@@ -26,11 +26,12 @@ const StyledPaper = styled(Paper)(() => ({
 
 interface HeaderProps {
   headerContent: JSX.Element;
+  sx?: SxProps<Theme>;
 }
 
-export default function Header({ headerContent }: HeaderProps) {
+export default function Header({ headerContent, sx }: HeaderProps) {
   return (
-    <StyledPaper elevation={2}>
+    <StyledPaper elevation={2} sx={sx}>
       <StyledStack
         direction="row"
       >
