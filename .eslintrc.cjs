@@ -26,7 +26,7 @@ module.exports = {
     node: true,
     es2022: true,
   },
-  ignorePatterns: [".meteor/", "node_modules/", "storybook-static/", "output/", "dist/", "dist-demo/"],
+  ignorePatterns: [".meteor/", "node_modules/", "storybook-static/", "output/", "dist/", "dist-demo/", "src/lib/"],
   rules: {
     "indent": ["error", 2, { "FunctionExpression": { "parameters": 1 } }],
     "object-curly-spacing": ["warn", "always"],
