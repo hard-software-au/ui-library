@@ -1,7 +1,7 @@
 {
   "name": "@hard-software-au/ui-library",
   "private": true,
-  "version": "1.1.1",
+  "version": "1.1.2",
   "type": "module",
   "files": [
     "dist"
@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "vite --port 8080",
     "build": "tsc -b && vite build",
-    "build:lib": "vite build --config vite.lib.config.ts",
+    "generate:lib": "node scripts/generate-lib-entries.mjs",
+    "build:lib": "npm run generate:lib && vite build --config vite.lib.config.ts",
     "prepare": "npm run build:lib",
     "lint": "yarn lint:check",
     "lint:check": "eslint . --ext .ts,.tsx",
